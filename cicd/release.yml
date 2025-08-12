@@ -10,7 +10,7 @@ resources:
     source: 'DnDGen.RollGen - Build'
     trigger: 
       branches:
-      - master
+      - main
 
 jobs:
 

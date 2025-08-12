@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>16.0.1</Version>
+    <Version>16.0.2</Version>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
@@ -14,8 +14,7 @@
     <PackageIconUrl />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>
-      16.0.0: .Net 8
-	  16.0.1: Package updates to address security vulnerabilities
+	  16.0.2: Update default branch to main
     </PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
