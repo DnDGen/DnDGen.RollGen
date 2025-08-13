@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>16.0.2</Version>
+    <Version>16.0.3</Version>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
@@ -13,9 +13,7 @@
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <PackageIconUrl />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>
-	  16.0.2: Update default branch to main
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>Verify CI triggers</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <None Include="18531-twenty-sided-dice-vector-thumb.png">
