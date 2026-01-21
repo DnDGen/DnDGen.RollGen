@@ -1,4 +1,5 @@
 ﻿using Albatross.Expression;
+using Albatross.Expression.Parsing;
 using System;
 using System.Text.RegularExpressions;
 
@@ -23,8 +24,9 @@ namespace DnDGen.RollGen.Expressions
 
             try
             {
-                var unevaluatedMatch = parser.Compile(expression).EvalValue(null);
-                var evaluatedExpression = Utils.BooleanOrType<T>(unevaluatedMatch);
+                var exp = parser.Build(expression);
+                var evaluation = exp.Eval(null);
+                var evaluatedExpression = Utils.BooleanOrType<T>(evaluation);
 
                 return Utils.ChangeType<T>(evaluatedExpression);
             }
@@ -46,7 +48,7 @@ namespace DnDGen.RollGen.Expressions
 
             try
             {
-                var unevaluatedMatch = parser.Compile(expression).EvalValue(null);
+                var unevaluatedMatch = parser.Build(expression).Eval(null);
                 return unevaluatedMatch != null;
             }
             catch

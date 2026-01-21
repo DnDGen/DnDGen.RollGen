@@ -1,4 +1,5 @@
 ﻿using Albatross.Expression;
+using Albatross.Expression.Parsing;
 using DnDGen.RollGen.Expressions;
 using DnDGen.RollGen.PartialRolls;
 using Ninject.Modules;
@@ -14,7 +15,7 @@ namespace DnDGen.RollGen.IoC.Modules
             Bind<Dice>().To<DomainDice>();
             Bind<PartialRollFactory>().To<DomainPartialRollFactory>();
             Bind<ExpressionEvaluator>().To<AlbatrossExpressionEvaluator>();
-            Bind<IParser>().ToMethod(c => Factory.Instance.Create());
+            Bind<IParser>().ToMethod(c => new ParserBuilder().BuildDefault());
         }
     }
 }
