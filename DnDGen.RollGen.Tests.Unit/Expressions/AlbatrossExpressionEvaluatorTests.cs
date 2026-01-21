@@ -1,5 +1,5 @@
 ﻿using Albatross.Expression;
-using Albatross.Expression.Tokens;
+using Albatross.Expression.Nodes;
 using DnDGen.RollGen.Expressions;
 using Moq;
 using NUnit.Framework;
@@ -27,15 +27,15 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
 
         private void SetUpExpression(string expression, object result)
         {
-            var mockToken = new Mock<IToken>();
+            var mockExpression = new Mock<IExpression>();
             var queue = new Queue<IToken>();
             var stack = new Stack<IToken>();
 
             mockParser.Setup(p => p.Tokenize(expression)).Returns(queue);
-            mockParser.Setup(p => p.BuildStack(queue)).Returns(stack);
-            mockParser.Setup(p => p.CreateTree(stack)).Returns(mockToken.Object);
+            mockParser.Setup(p => p.BuildPostfixStack(queue)).Returns(stack);
+            mockParser.Setup(p => p.CreateTree(stack)).Returns(mockExpression.Object);
 
-            mockToken.Setup(t => t.EvalValue(null)).Returns(result);
+            mockExpression.Setup(t => t.Eval(null)).Returns(result);
         }
 
         [Test]
@@ -96,16 +96,16 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
         {
             var expression = "wrong expression";
 
-            var mockToken = new Mock<IToken>();
+            var mockExpression = new Mock<IExpression>();
             var queue = new Queue<IToken>();
             var stack = new Stack<IToken>();
 
             mockParser.Setup(p => p.Tokenize(expression)).Returns(queue);
-            mockParser.Setup(p => p.BuildStack(queue)).Returns(stack);
-            mockParser.Setup(p => p.CreateTree(stack)).Returns(mockToken.Object);
+            mockParser.Setup(p => p.BuildPostfixStack(queue)).Returns(stack);
+            mockParser.Setup(p => p.CreateTree(stack)).Returns(mockExpression.Object);
 
             var exception = new Exception("I failed");
-            mockToken.Setup(t => t.EvalValue(null)).Throws(exception);
+            mockExpression.Setup(t => t.Eval(null)).Throws(exception);
 
             Assert.That(() => expressionEvaluator.Evaluate<int>(expression),
                 Throws.InvalidOperationException
@@ -127,16 +127,16 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
         {
             //mockParser.Setup(p => p.IsValidExpression(Expression)).Returns(false);
 
-            var mockToken = new Mock<IToken>();
+            var mockExpression = new Mock<IExpression>();
             var queue = new Queue<IToken>();
             var stack = new Stack<IToken>();
 
             mockParser.Setup(p => p.Tokenize(Expression)).Returns(queue);
-            mockParser.Setup(p => p.BuildStack(queue)).Returns(stack);
-            mockParser.Setup(p => p.CreateTree(stack)).Returns(mockToken.Object);
+            mockParser.Setup(p => p.BuildPostfixStack(queue)).Returns(stack);
+            mockParser.Setup(p => p.CreateTree(stack)).Returns(mockExpression.Object);
 
             var exception = new Exception("I failed");
-            mockToken.Setup(t => t.EvalValue(null)).Throws(exception);
+            mockExpression.Setup(t => t.Eval(null)).Throws(exception);
 
             var result = expressionEvaluator.IsValid(Expression);
             Assert.That(result, Is.False);

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>16.0.3</Version>
+    <Version>16.0.4</Version>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
@@ -13,7 +13,7 @@
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <PackageIconUrl />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Verify CI triggers</PackageReleaseNotes>
+    <PackageReleaseNotes>Dependabot updates</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <None Include="18531-twenty-sided-dice-vector-thumb.png">
@@ -23,7 +23,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Albatross.Expression" Version="3.0.13" />
+    <PackageReference Include="Albatross.Expression" Version="5.0.0" />
     <PackageReference Include="Ninject" Version="3.3.6" />
   </ItemGroup>
 </Project>

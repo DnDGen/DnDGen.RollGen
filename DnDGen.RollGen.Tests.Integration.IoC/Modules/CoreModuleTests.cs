@@ -1,4 +1,5 @@
 ﻿using Albatross.Expression;
+using Albatross.Expression.Parsing;
 using DnDGen.RollGen.Expressions;
 using DnDGen.RollGen.PartialRolls;
 using DnDGen.RollGen.Tests.Integration;
