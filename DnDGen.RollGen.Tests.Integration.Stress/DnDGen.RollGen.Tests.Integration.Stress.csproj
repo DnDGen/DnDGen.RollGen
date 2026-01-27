@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DnDGen.Stress" Version="4.1.1" />
+    <PackageReference Include="DnDGen.Stress" Version="4.1.2" />
     <PackageReference Include="Ninject" Version="3.3.6" />
     <PackageReference Include="nunit" Version="4.4.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
