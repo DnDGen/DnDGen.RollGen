@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>16.0.5</Version>
+    <Version>16.0.6</Version>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
