@@ -21,25 +21,25 @@ steps:
   inputs:
     command: test
     projects: 'DnDGen.RollGen.Tests.Unit/DnDGen.RollGen.Tests.Unit.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 - task: DotNetCoreCLI@2
   displayName: IoC Tests
   inputs:
     command: test
     projects: 'DnDGen.RollGen.Tests.Integration.IoC/DnDGen.RollGen.Tests.Integration.IoC.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 - task: DotNetCoreCLI@2
   displayName: Integration Tests
   inputs:
     command: test
     projects: 'DnDGen.RollGen.Tests.Integration/DnDGen.RollGen.Tests.Integration.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 - task: DotNetCoreCLI@2
   displayName: Stress Tests
   inputs:
     command: test
     projects: 'DnDGen.RollGen.Tests.Integration.Stress/DnDGen.RollGen.Tests.Integration.Stress.csproj'
-    arguments: '-v normal --configuration Stress'
+    arguments: '-v normal --collect "Code Coverage" --configuration Stress'
 
 - task: PowerShell@2
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
