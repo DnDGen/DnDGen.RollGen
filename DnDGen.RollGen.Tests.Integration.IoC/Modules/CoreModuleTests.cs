@@ -31,7 +31,7 @@ namespace DnDGen.RollGen.Tests.Bootstrap.Modules
         [Test]
         public void CannotInjectPartialRoll()
         {
-            Assert.That(() => GetNewInstanceOf<PartialRoll>(), Throws.InstanceOf<ActivationException>());
+            Assert.That((Func<object>)(() => GetNewInstanceOf<PartialRoll>()), Throws.InstanceOf<ActivationException>());
         }
 
         [Test]
