@@ -69,7 +69,7 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
         [Test]
         public void IfDieRollIsInExpression_ThrowArgumentException()
         {
-            Assert.That(() => expressionEvaluator.Evaluate<int>("expression with 3 d 4+2"),
+            Assert.That((Func<int>)(() => expressionEvaluator.Evaluate<int>("expression with 3 d 4+2")),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot evaluate unrolled die roll 3 d 4"));
         }
 
@@ -107,7 +107,7 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
             var exception = new Exception("I failed");
             mockExpression.Setup(t => t.Eval(null)).Throws(exception);
 
-            Assert.That(() => expressionEvaluator.Evaluate<int>(expression),
+            Assert.That((Func<int>)(() => expressionEvaluator.Evaluate<int>(expression)),
                 Throws.InvalidOperationException
                 .With.Message.EqualTo($"Expression 'wrong expression' is invalid")
                 .And.InnerException.EqualTo(exception));

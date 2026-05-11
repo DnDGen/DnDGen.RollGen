@@ -368,7 +368,8 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             roll.Quantity = 46341;
             roll.Die = 46342;
 
-            Assert.That(() => roll.GetRolls(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
+            Assert.That((Func<object>)(() => roll.GetRolls(mockRandom.Object)),
+                Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
         }
 
         [Test]
@@ -377,7 +378,8 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             roll.Quantity = 46341;
             roll.Die = 46342;
 
-            Assert.That(() => roll.GetSum(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
+            Assert.That((Func<int>)(() => roll.GetSum(mockRandom.Object)),
+                Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
         }
 
         [Test]
@@ -386,7 +388,8 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             roll.Quantity = 46341;
             roll.Die = 46342;
 
-            Assert.That(() => roll.GetPotentialAverage(), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
+            Assert.That((Func<double>)(() => roll.GetPotentialAverage()),
+                Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
         }
 
         [Test]
@@ -395,7 +398,8 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             roll.Quantity = 46341;
             roll.Die = 46342;
 
-            Assert.That(() => roll.GetTrueOrFalse(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
+            Assert.That((Func<bool>)(() => roll.GetTrueOrFalse(mockRandom.Object)),
+                Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
         }
 
         [Test]
@@ -404,7 +408,8 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             roll.Quantity = 46341;
             roll.Die = 46342;
 
-            Assert.That(() => roll.GetPotentialMinimum(), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
+            Assert.That((Func<int>)(() => roll.GetPotentialMinimum()),
+                Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
         }
 
         [Test]
@@ -413,7 +418,8 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             roll.Quantity = 46341;
             roll.Die = 46342;
 
-            Assert.That(() => roll.GetPotentialMaximum(), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
+            Assert.That((Func<int>)(() => roll.GetPotentialMaximum()),
+                Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("46341d46342 is not a valid roll\n\tQuantity: 0 < 46341 < 10000\n\tDie: 0 < 46342 < 10000"));
         }
 
         [TestCase(-2)]
@@ -428,7 +434,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
 
             var message = $"{invalidQuantity}d9266 is not a valid roll";
             message += $"\n\tQuantity: 0 < {invalidQuantity} < {Limits.Quantity}";
-            Assert.That(() => roll.GetSum(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
+            Assert.That((Func<int>)(() => roll.GetSum(mockRandom.Object)), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
         }
 
         [TestCase(-2)]
@@ -443,7 +449,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
 
             var message = $"9266d{invalidDie} is not a valid roll";
             message += $"\n\tDie: 0 < {invalidDie} < {Limits.Die}";
-            Assert.That(() => roll.GetSum(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
+            Assert.That((Func<int>)(() => roll.GetSum(mockRandom.Object)), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
         }
 
         [TestCase(-2)]
@@ -458,7 +464,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
 
             var message = $"9266d42k{invalidKeep} is not a valid roll";
             message += $"\n\tKeep: 0 <= {invalidKeep} < {Limits.Quantity}";
-            Assert.That(() => roll.GetSum(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
+            Assert.That((Func<int>)(() => roll.GetSum(mockRandom.Object)), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
         }
 
         [Test]
@@ -470,7 +476,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
 
             var message = $"9266d1e1 is not a valid roll";
             message += $"\n\tExplode: Must have at least 1 non-exploded roll";
-            Assert.That(() => roll.GetSum(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
+            Assert.That((Func<int>)(() => roll.GetSum(mockRandom.Object)), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
         }
 
         [TestCase(-2)]
@@ -485,7 +491,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
 
             var message = $"9266d42t{transform}:42 is not a valid roll";
             message += $"\n\tTransform: 0 < [{transform}:42] <= {Limits.Die}";
-            Assert.That(() => roll.GetSum(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
+            Assert.That((Func<int>)(() => roll.GetSum(mockRandom.Object)), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
         }
 
         [TestCase(-2)]
@@ -501,7 +507,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
 
             var message = $"9266d42t21:42t{transform}:42 is not a valid roll";
             message += $"\n\tTransform: 0 < [21:42,{transform}:42] <= {Limits.Die}";
-            Assert.That(() => roll.GetSum(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
+            Assert.That((Func<int>)(() => roll.GetSum(mockRandom.Object)), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
         }
 
         [Test]
@@ -519,7 +525,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             message += $"\n\tKeep: 0 <= -1 < {Limits.Quantity}";
             message += $"\n\tExplode: Must have at least 1 non-exploded roll";
             message += $"\n\tTransform: 0 < [{Limits.Die + 1}:0] <= {Limits.Die}";
-            Assert.That(() => roll.GetSum(mockRandom.Object), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
+            Assert.That((Func<int>)(() => roll.GetSum(mockRandom.Object)), Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo(message));
         }
 
         [Test]
