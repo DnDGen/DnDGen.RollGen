@@ -2,13 +2,23 @@
 
 Rolls a set of dice, as determined by the D20 die system.
 
-[![Build Status](https://dev.azure.com/dndgen/DnDGen/_apis/build/status/DnDGen.RollGen?branchName=master)](https://dev.azure.com/dndgen/DnDGen/_build/latest?definitionId=13&branchName=master)
+[![Build Status](https://dev.azure.com/dndgen/DnDGen/_apis/build/status%2FDnDGen.RollGen%20-%20Build?branchName=main)](https://dev.azure.com/dndgen/DnDGen/_build/latest?definitionId=13&branchName=main)
+
+## Installing
+
+The project is on [NuGet](https://www.nuget.org/packages/DnDGen.RollGen).
+
+```
+dotnet add package DnDGen.RollGen
+```
+
+Version 17 requires .NET 10. Use version 16.x if you are still on .NET 8.
 
 ## Syntax
 
 ### Use
 
-To use RollGen, simple adhere to the verbose, fluid syntax:
+To use RollGen, simply use the verbose, fluid syntax:
 
 ```C#
 var standardRoll = dice.Roll(4).d6().AsSum();
@@ -36,7 +46,7 @@ var success = dice.Roll().Percentile().AsTrueOrFalse(); //Returns true if high (
 var customPercentageSuccess = dice.Roll().Percentile().AsTrueOrFalse(.9); //Returns true if > 90, false if <= 90
 var customRollSuccess = dice.Roll().Percentile().AsTrueOrFalse(90); //Returns true if >= 90, false if < 90
 var expressionSuccess = dice.Roll("5+3d4*2").AsTrueOrFalse(); //Returns true if high, false if low
-var explicitExpressionSuccess = dice.Roll("2d6 >= 1d12").AsTrueOrFalse(); //Evalutes boolean expression after rolling
+var explicitExpressionSuccess = dice.Roll("2d6 >= 1d12").AsTrueOrFalse(); //Evaluates boolean expression after rolling
 
 var containsRoll = dice.ContainsRoll("This contains a roll of 4d6k3 for rolling stats"); //will return true here
 var summedSentence = dice.ReplaceRollsWithSumExpression("This contains a roll of 4d6k3 for rolling stats"); //returns "This contains a roll of (5 + 3 + 2) for rolling stats"
@@ -120,7 +130,7 @@ valid = dice.IsValid("9266+90210-42*600/1337%1336+96d(783d82%45+922-2022/337)-mi
 Important things to note:
 
 1. When retrieving individual rolls from an expression, only the sum of the expression is returned.  This is because determining what an "individual roll" is within a complex expression is not certain.  As an example, what would individual rolls be for `1d2+3d4`?
-2. Mathematical expressions supported are `+`, `-`, `*`, `/`, and `%`, as well as die rolls as demonstrated above.  Spaces are allowed in the expression strings.  Paranthetical expressions are also allowed.
+2. Mathematical expressions supported are `+`, `-`, `*`, `/`, and `%`, as well as die rolls as demonstrated above.  Spaces are allowed in the expression strings.  Parenthetical expressions are also allowed.
 3. For replacement methods on `Dice`, there is an option to do "lenient" replacements (optional boolean).  The difference:
     a. "1d2 ghouls and 2d4 zombies" strict -> "1 ghouls and 5 zombies"
     b. "1d2 ghouls and 2d4 zombies" lenient -> "1 ghouls an3 zombies" (it reads "and 2d4" as "an(d 2d4)")
@@ -141,9 +151,12 @@ The documentation also outlines supported functions (such as `min` and `max`) th
 
 ### Getting `Dice` Objects
 
-You can obtain dice from the domain project. Because the dice are very complex and are decorated in various ways, there is not a (recommended) way to build these objects manually. Please use the ModuleLoader for Ninject.
+`Dice` is an interface, and its implementation is internal to RollGen. Get an instance through Ninject, using the `RollGenModuleLoader`, or through `DiceFactory` if you are not using Ninject.
 
 ```C#
+using DnDGen.RollGen.IoC;
+using Ninject;
+
 var kernel = new StandardKernel();
 var rollGenModuleLoader = new RollGenModuleLoader();
 
@@ -166,7 +179,7 @@ public int Roll()
 ```
 
 ```C#
-private myDice;
+private readonly Dice myDice;
 
 public MyClass(Dice dice) //This works if you are calling Ninject to build MyClass
 {
@@ -185,14 +198,8 @@ public MyClass()
 
 public int Roll()
 {
-    var myDice = DiceFactory.Create(); //Located in RollGen.IoC
+    var myDice = DiceFactory.Create(); //Located in DnDGen.RollGen.IoC
     return myDice.Roll(4).d6().Keeping(3).AsSum();
 }
 ```
-
-### Installing RollGen
-
-The project is on [Nuget](https://www.nuget.org/packages/DnDGen.RollGen). Install via the NuGet Package Manager.
-
-    PM > Install-Package DnDGen.RollGen
 
