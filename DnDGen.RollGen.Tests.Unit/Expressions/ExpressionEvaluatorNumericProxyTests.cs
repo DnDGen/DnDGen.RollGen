@@ -39,37 +39,28 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
         {
             var result = proxy.Evaluate<double>(expression);
             Assert.That(result, Is.EqualTo(expected));
-        }
-
-        [TestCase("0")]
-        [TestCase("5")]
-        [TestCase("-8")]
-        [TestCase("+5")]
-        [TestCase("007")]
-        [TestCase("0.25")]
-        [TestCase("-0.25")]
-        [TestCase(" 9266 ")]
-        [TestCase("9266.90210")]
-        [TestCase("10000000000")]
-        [TestCase(".5")]
-        [TestCase("-.5")]
-        [TestCase("+.5")]
-        [TestCase("5.")]
-        [TestCase("1e5")]
-        [TestCase("NaN")]
-        [TestCase("Infinity")]
-        [TestCase("-Infinity")]
-        public void Evaluate_DoesNotCallInnerEvaluator_WhenExpressionIsNumber(string expression)
-        {
-            proxy.Evaluate<double>(expression);
             mockInnerEvaluator.VerifyNoOtherCalls();
         }
 
-        [Test]
-        public void Evaluate_ConvertsNumberToRequestedType()
+        [TestCase("0", 0)]
+        [TestCase("5", 5)]
+        [TestCase("-8", -8)]
+        [TestCase("+5", 5)]
+        [TestCase("007", 7)]
+        [TestCase("0.25", 0)]
+        [TestCase("-0.25", 0)]
+        [TestCase(" 9266 ", 9266)]
+        [TestCase("9266.90210", 9267)]
+        [TestCase("10000000000", 10000000000)]
+        [TestCase(".5", 0)]
+        [TestCase("-.5", -0)]
+        [TestCase("+.5", 0)]
+        [TestCase("5.", 5)]
+        [TestCase("1e5", 100000)]
+        public void Evaluate_ConvertsNumberToRequestedType(string expression, int expected)
         {
-            var result = proxy.Evaluate<int>("902.1");
-            Assert.That(result, Is.EqualTo(902));
+            var result = proxy.Evaluate<int>(expression);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase("0", false)]

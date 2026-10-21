@@ -11,14 +11,5 @@ namespace DnDGen.RollGen
 
             return (T)Convert.ChangeType(rawEvaluatedExpression, typeof(T));
         }
-
-        /// <summary>Returns a string of the provided object as boolean, if it is one, otherwise of Type T.</summary>
-        public static string BooleanOrType<T>(object rawEvaluatedExpression)
-        {
-            if (rawEvaluatedExpression is bool)
-                return rawEvaluatedExpression.ToString();
-
-            return ChangeType<T>(rawEvaluatedExpression).ToString();
-        }
     }
 }
