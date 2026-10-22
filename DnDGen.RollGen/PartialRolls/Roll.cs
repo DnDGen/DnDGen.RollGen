@@ -22,12 +22,6 @@ namespace DnDGen.RollGen.PartialRolls
         private bool ExplodeValid => ExplodeOn.Count == 0 || (DieValid && Enumerable.Range(1, Die).Except(ExplodeOn).Any());
         private bool TransformValid => Transforms.Count == 0 || Transforms.All(kvp => kvp.Key > 0 && kvp.Key <= Limits.Die);
 
-        public Roll()
-        {
-            ExplodeOn = [];
-            Transforms = [];
-        }
-
         public Roll(string toParse)
         {
             var sections = new Dictionary<char, List<int>>
@@ -65,9 +59,6 @@ namespace DnDGen.RollGen.PartialRolls
                     number += toParse[i];
                     continue;
                 }
-
-                if (number.Length == 0)
-                    continue;
 
                 //INFO: This means we are using the "Default" transform to the max die value
                 if (toParse[i] != ':' && key == 't')

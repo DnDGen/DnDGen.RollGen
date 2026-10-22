@@ -79,9 +79,6 @@ namespace DnDGen.RollGen
         {
             var rolls = GetIndividualRolls(roll);
 
-            if (rolls.Any() == false)
-                return "0";
-
             if (rolls.Count() == 1)
                 return rolls.First().ToString();
 

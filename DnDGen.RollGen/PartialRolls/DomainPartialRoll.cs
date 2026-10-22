@@ -367,9 +367,6 @@ namespace DnDGen.RollGen.PartialRolls
         private static bool NeedFollowingMultiplier(string expression)
         {
             var openParanthesisIndex = expression.IndexOf('(');
-            if (openParanthesisIndex < 0)
-                return false;
-
             var innerExpressionLength = GetInnerExpressionLength(expression, openParanthesisIndex);
             var followingIndex = openParanthesisIndex + innerExpressionLength + 2;
 

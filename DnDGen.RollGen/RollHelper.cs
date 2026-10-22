@@ -168,8 +168,6 @@ namespace DnDGen.RollGen
             foreach (var die in dice)
             {
                 var diePrototypes = BuildRollPrototypes(lower, upper, die);
-                if (!diePrototypes.Any())
-                    continue;
 
                 var collection = new RollCollection();
                 collection.Rolls.AddRange(diePrototypes);
@@ -212,12 +210,8 @@ namespace DnDGen.RollGen
             return prototypes;
         }
 
-        private static long GetRank(RollCollection collection, RankMode rankMode) => rankMode switch
-        {
-            RankMode.FewestDice => collection.Rolls.Count,
-            RankMode.BestDistribution => collection.ComputeDistribution(),
-            _ => throw new ArgumentOutOfRangeException(nameof(rankMode), $"Not expected Rank Mode value: {rankMode}")
-        };
+        private static long GetRank(RollCollection collection, RankMode rankMode) =>
+            rankMode == RankMode.FewestDice ? collection.Rolls.Count : collection.ComputeDistribution();
 
         private static IEnumerable<RollPrototype> BuildRollPrototypes(int lower, int upper, int die)
         {

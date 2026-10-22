@@ -90,9 +90,6 @@ namespace DnDGen.RollGen
         /// <returns></returns>
         public long ComputeDistribution()
         {
-            if (Quantities == 0)
-                return 0;
-
             if (Quantities == 1)
                 return 1;
 
