@@ -84,19 +84,19 @@ var valid = dice.IsValid("3d6+1"); //Returns TRUE
 valid = dice.IsValid("(3)d(6)+1"); //Returns TRUE
 valid = dice.IsValid("(1d2)d(3d4)+5d6"); //Returns TRUE
 valid = dice.IsValid("10000d10000"); //Returns TRUE
-valid = dice.IsValid("(100d100d100)d(100d100d100)"); //Returns TRUE
+valid = dice.IsValid("(100d100)d(100d100)"); //Returns TRUE
 
 valid = dice.IsValid("(0)d(6)+1"); //Returns FALSE, because quantity is too low
 valid = dice.IsValid("(3.1)d(6)+1"); //Returns FALSE, because decimals are not allowed for dice operations
 valid = dice.IsValid("0d6+1"); //Returns FALSE, because quantity is too low
 valid = dice.IsValid("10001d10000"); //Returns FALSE, because quantity is too high
-valid = dice.IsValid("(100d100d100+1)d(100d100d100)"); //Returns FALSE, because quantity could potentially be above the 10,000 limit
+valid = dice.IsValid("(100d100+1)d(100d100)"); //Returns FALSE, because quantity could potentially be above the 10,000 limit
 
 valid = dice.IsValid("(3)d(-6)+1"); //Returns FALSE, because die is too low
 valid = dice.IsValid("(3)d(6.1)+1"); //Returns FALSE, because decimals are not allowed for dice operations
 valid = dice.IsValid("3d0+1"); //Returns FALSE, because die is too low
 valid = dice.IsValid("10000d10001"); //Returns FALSE, because die is too high
-valid = dice.IsValid("(100d100d100)d(100d100d100+1)"); //Returns FALSE, because die could potentially be above the 10,000 limit
+valid = dice.IsValid("(100d100)d(100d100+1)"); //Returns FALSE, because die could potentially be above the 10,000 limit
 
 valid = dice.IsValid("4d6k3"); //Returns TRUE
 valid = dice.IsValid("(4)d(6)k(3)"); //Returns TRUE
@@ -104,7 +104,7 @@ valid = dice.IsValid("(4)d(6)k(-1)"); //Returns FALSE, because keep value is too
 valid = dice.IsValid("(4)d(6)k(3.1)"); //Returns FALSE, because decimals are not allowed for dice operations
 valid = dice.IsValid("4d6k10000"); //Returns TRUE
 valid = dice.IsValid("4d6k10001"); //Returns FALSE, because keep value is too high
-valid = dice.IsValid("4d6k(100d100d100+1)"); //Returns FALSE, because keep value could potentially be above the 10,000 limit
+valid = dice.IsValid("4d6k(100d100+1)"); //Returns FALSE, because keep value could potentially be above the 10,000 limit
 
 valid = dice.IsValid("2d3!"); //Returns TRUE
 valid = dice.IsValid("2d3!e2"); //Returns TRUE

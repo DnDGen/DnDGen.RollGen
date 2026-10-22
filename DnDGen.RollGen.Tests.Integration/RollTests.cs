@@ -497,11 +497,12 @@ namespace DnDGen.RollGen.Tests.Integration
         [TestCase("(8=6)", false)]
         public void SpecificBooleanRolls(string rollExpression, bool? expectedValue = null)
         {
-            var roll = dice.Roll(rollExpression).AsTrueOrFalse();
-            Assert.That(roll, Is.True.Or.False);
+            var roll = dice.Roll(rollExpression);
 
             if (expectedValue.HasValue)
-                Assert.That(roll, Is.EqualTo(expectedValue.Value));
+                Assert.That(roll.AsTrueOrFalse(), Is.EqualTo(expectedValue.Value));
+            else
+                Assert.That(() => roll.AsTrueOrFalse(), Throws.Nothing);
         }
 
         [TestCase("4d6k3", 1, 6, 3)]

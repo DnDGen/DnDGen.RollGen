@@ -126,40 +126,35 @@ namespace DnDGen.RollGen.Tests.Integration
         [Repeat(100)]
         public void Success()
         {
-            var roll = dice.Roll().Percentile().AsTrueOrFalse();
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll().Percentile().AsTrueOrFalse(), Throws.Nothing);
         }
 
         [Test]
         [Repeat(100)]
         public void CustomPercentageSuccess()
         {
-            var roll = dice.Roll().Percentile().AsTrueOrFalse(.9);
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll().Percentile().AsTrueOrFalse(.9), Throws.Nothing);
         }
 
         [Test]
         [Repeat(100)]
         public void CustomRollSuccess()
         {
-            var roll = dice.Roll().Percentile().AsTrueOrFalse(90);
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll().Percentile().AsTrueOrFalse(90), Throws.Nothing);
         }
 
         [Test]
         [Repeat(100)]
         public void ExpressionSuccess()
         {
-            var roll = dice.Roll("5+3d4*2").AsTrueOrFalse();
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll("5+3d4*2").AsTrueOrFalse(), Throws.Nothing);
         }
 
         [Test]
         [Repeat(100)]
         public void ExplicitExpressionSuccess()
         {
-            var roll = dice.Roll("2d6>=1d12").AsTrueOrFalse();
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll("2d6 >= 1d12").AsTrueOrFalse(), Throws.Nothing);
         }
 
         [Test]
@@ -225,14 +220,14 @@ namespace DnDGen.RollGen.Tests.Integration
         [Test]
         public void OptimizedRollWithMultipliers()
         {
-            var roll = RollHelper.GetRollWithMostEvenDistribution(1, 36, true);
+            var roll = RollHelper.GetRollWithMostEvenDistribution(1, 36, allowMultipliers: true);
             Assert.That(roll, Is.EqualTo("(1d12-1)*3+1d3"));
         }
 
         [Test]
         public void OptimizedRollWithNonstandardDice()
         {
-            var roll = RollHelper.GetRollWithMostEvenDistribution(1, 36, false, true);
+            var roll = RollHelper.GetRollWithMostEvenDistribution(1, 36, allowNonstandardDice: true);
             Assert.That(roll, Is.EqualTo("1d36"));
         }
 
