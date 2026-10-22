@@ -46,7 +46,7 @@ namespace DnDGen.RollGen.Tests.Bootstrap.Modules
         public void ExpressionEvaluatorIsDecorated()
         {
             var evaluator = GetNewInstanceOf<ExpressionEvaluator>();
-            Assert.That(evaluator, Is.InstanceOf<ExpressionEvaluatorNumericProxy>());
+            Assert.That(evaluator, Is.InstanceOf<ExpressionEvaluatorCachingProxy>());
         }
 
         [Test]
