@@ -11,6 +11,10 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
         private Random random;
         private Stopwatch stopwatch;
 
+        //INFO: The largest real roll ranges in DnDGen are CreatureGen's Colossal weights, at up to 2,000,000 pounds.
+        //This gives 10x headroom over that.
+        private const int LargestUpper = 20_000_000;
+
         [SetUp]
         public void Setup()
         {
@@ -36,7 +40,7 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
 
         private void AssertGetRoll(Func<int, int, string> getRoll)
         {
-            var upperLimit = random.Next(2) == 1 ? int.MaxValue : Limits.Die;
+            var upperLimit = random.Next(2) == 1 ? LargestUpper : Limits.Die;
             var upper = random.Next(upperLimit) + 1;
             var lower = random.Next(upper);
 
