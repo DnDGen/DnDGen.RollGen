@@ -35,6 +35,14 @@ namespace DnDGen.RollGen.Tests.Bootstrap.Modules
         }
 
         [Test]
+        public void ExpressionEvaluatorIsCreatedAsSingleton()
+        {
+            var evaluator1 = GetNewInstanceOf<ExpressionEvaluator>();
+            var evaluator2 = GetNewInstanceOf<ExpressionEvaluator>();
+            Assert.That(evaluator1, Is.EqualTo(evaluator2));
+        }
+
+        [Test]
         public void ExpressionEvaluatorIsDecorated()
         {
             var evaluator = GetNewInstanceOf<ExpressionEvaluator>();

@@ -118,10 +118,10 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
             Assert.That(roll.AsPotentialMinimum<double>(), Is.EqualTo(min), roll.CurrentRollExpression);
             Assert.That(roll.AsPotentialMaximum<double>(false), Is.EqualTo(max), roll.CurrentRollExpression);
             Assert.That(roll.AsPotentialMaximum<double>(), Is.EqualTo(explodeMax), roll.CurrentRollExpression);
-            //HACK: We are ignoring the average, since it will probably result in decimal rolls during evaluation
+            //HACK: We are ignoring the average, since it will probably result in decimal rolls during evaluation (#109)
 
-            Assert.That(roll.AsTrueOrFalse(percentageThreshold), Is.True.Or.False, roll.CurrentRollExpression);
-            Assert.That(roll.AsTrueOrFalse(rollThreshold), Is.True.Or.False, roll.CurrentRollExpression);
+            Assert.That(() => roll.AsTrueOrFalse(percentageThreshold), Throws.Nothing, roll.CurrentRollExpression);
+            Assert.That(() => roll.AsTrueOrFalse(rollThreshold), Throws.Nothing, roll.CurrentRollExpression);
 
             var rolls = roll.AsIndividualRolls();
 

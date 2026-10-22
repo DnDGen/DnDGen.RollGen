@@ -14,8 +14,9 @@ namespace DnDGen.RollGen.IoC.Modules
             Bind<Random>().ToSelf().InSingletonScope();
             Bind<Dice>().To<DomainDice>();
             Bind<PartialRollFactory>().To<DomainPartialRollFactory>();
-            Bind<ExpressionEvaluator>().To<AlbatrossExpressionEvaluator>().WhenInjectedInto<ExpressionEvaluatorNumericProxy>();
-            Bind<ExpressionEvaluator>().To<ExpressionEvaluatorNumericProxy>();
+            Bind<ExpressionEvaluator>().To<AlbatrossExpressionEvaluator>().WhenInjectedInto<ExpressionEvaluatorCachingProxy>();
+            Bind<ExpressionEvaluator>().To<ExpressionEvaluatorCachingProxy>().WhenInjectedInto<ExpressionEvaluatorNumericProxy>().InSingletonScope();
+            Bind<ExpressionEvaluator>().To<ExpressionEvaluatorNumericProxy>().InSingletonScope();
             Bind<IParser>().ToMethod(c => new ParserBuilder().BuildDefault());
         }
     }

@@ -6,8 +6,8 @@ namespace DnDGen.RollGen
     {
         public static T ChangeType<T>(object rawEvaluatedExpression)
         {
-            if (rawEvaluatedExpression is T)
-                return (T)rawEvaluatedExpression;
+            if (rawEvaluatedExpression is T t)
+                return t;
 
             return (T)Convert.ChangeType(rawEvaluatedExpression, typeof(T));
         }

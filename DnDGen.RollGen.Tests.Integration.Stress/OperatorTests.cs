@@ -33,7 +33,7 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
             AssertTotal(roll, quantity + plus);
         }
 
-        private void AssertTotal(PartialRoll roll, double total)
+        private static void AssertTotal(PartialRoll roll, double total)
         {
             Assert.That(roll.IsValid(), Is.True, roll.CurrentRollExpression);
             Assert.That(roll.AsSum<double>(), Is.EqualTo(total), roll.CurrentRollExpression);

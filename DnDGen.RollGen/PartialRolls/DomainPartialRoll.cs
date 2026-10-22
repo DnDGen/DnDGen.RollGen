@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace DnDGen.RollGen.PartialRolls
 {
-    internal class DomainPartialRoll : PartialRoll
+    internal partial class DomainPartialRoll : PartialRoll
     {
         private readonly Random random;
         private readonly ExpressionEvaluator expressionEvaluator;
@@ -18,8 +18,8 @@ namespace DnDGen.RollGen.PartialRolls
             this.random = random;
             this.expressionEvaluator = expressionEvaluator;
 
-            strictRollRegex = new Regex(RegexConstants.StrictRollPattern);
-            booleanExpressionRegex = new Regex(RegexConstants.BooleanExpressionPattern);
+            strictRollRegex = StrictRollPartialRegex();
+            booleanExpressionRegex = BooleanExpressionPartialRegex();
         }
 
         public DomainPartialRoll(double quantity, Random random, ExpressionEvaluator expressionEvaluator)
@@ -99,7 +99,7 @@ namespace DnDGen.RollGen.PartialRolls
             return AsTrueOrFalse(roll);
         }
 
-        private bool IsInteger(double value)
+        private static bool IsInteger(double value)
         {
             return Math.Abs(value % 1) <= (double.Epsilon * 100);
         }
@@ -210,10 +210,10 @@ namespace DnDGen.RollGen.PartialRolls
 
             //INFO: Not sure how to evaluate individual rolls from genuine expressions (6d5d4k3d2k1), so will compute those as 1 roll
             var evaluatedExpression = EvaluateExpression(trimmedExpression, e => GetTotalOfRolls<T>(e));
-            return new[] { evaluatedExpression };
+            return [evaluatedExpression];
         }
 
-        private bool CanTrimParanthesesFromExpression(string rollExpression)
+        private static bool CanTrimParanthesesFromExpression(string rollExpression)
         {
             var wrappedInParantheses = rollExpression.StartsWith('(') && rollExpression.EndsWith(')');
             if (!wrappedInParantheses)
@@ -310,7 +310,7 @@ namespace DnDGen.RollGen.PartialRolls
 
                 var matchValue = match.Value.Trim();
                 var repeatedRoll = RegexConstants.GetRepeatedRoll(matchValue, expressionWithReplacedRolls);
-                var replacement = string.Empty;
+                string replacement;
 
                 if (repeatedRoll.IsMatch && typeof(T) == typeof(int))
                 {
@@ -353,7 +353,7 @@ namespace DnDGen.RollGen.PartialRolls
             return expressionWithReplacedRolls;
         }
 
-        private bool NeedLeadingMultiplier(string expression)
+        private static bool NeedLeadingMultiplier(string expression)
         {
             var openParanthesisIndex = expression.IndexOf('(');
             if (openParanthesisIndex < 1)
@@ -364,7 +364,7 @@ namespace DnDGen.RollGen.PartialRolls
             return char.IsDigit(leadingCharacter) || leadingCharacter == ')';
         }
 
-        private bool NeedFollowingMultiplier(string expression)
+        private static bool NeedFollowingMultiplier(string expression)
         {
             var openParanthesisIndex = expression.IndexOf('(');
             if (openParanthesisIndex < 0)
@@ -381,7 +381,7 @@ namespace DnDGen.RollGen.PartialRolls
             return char.IsDigit(followingCharacter) || followingCharacter == '(';
         }
 
-        private int GetInnerExpressionLength(string expression, int openingIndex)
+        private static int GetInnerExpressionLength(string expression, int openingIndex)
         {
             var innerCount = 0;
             var closingIndex = 0;
@@ -418,8 +418,22 @@ namespace DnDGen.RollGen.PartialRolls
             return Utils.ChangeType<T>(sum);
         }
 
+        private static string TrimParantheses(string rollExpression)
+        {
+            var trimmedExpression = rollExpression;
+
+            while (CanTrimParanthesesFromExpression(trimmedExpression))
+            {
+                trimmedExpression = trimmedExpression[1..^1];
+            }
+
+            return trimmedExpression;
+        }
+
         private double GetAverageRoll(string rollExpression)
         {
+            rollExpression = TrimParantheses(rollExpression);
+
             if (!Roll.CanParse(rollExpression))
                 return EvaluateExpression(rollExpression, GetAverageRoll);
 
@@ -431,6 +445,8 @@ namespace DnDGen.RollGen.PartialRolls
 
         private T GetMinimumRoll<T>(string rollExpression)
         {
+            rollExpression = TrimParantheses(rollExpression);
+
             if (!Roll.CanParse(rollExpression))
                 return EvaluateExpression<T>(rollExpression, e => GetMinimumRoll<T>(e));
 
@@ -442,6 +458,8 @@ namespace DnDGen.RollGen.PartialRolls
 
         private T GetMaximumRoll<T>(string rollExpression, bool includeExplode)
         {
+            rollExpression = TrimParantheses(rollExpression);
+
             if (!Roll.CanParse(rollExpression))
                 return EvaluateExpression<T>(rollExpression, e => GetMaximumRoll<T>(e, includeExplode));
 
@@ -451,7 +469,7 @@ namespace DnDGen.RollGen.PartialRolls
             return Utils.ChangeType<T>(maximum);
         }
 
-        private string ReplaceFirst(string source, string target, string replacement, int index = -1)
+        private static string ReplaceFirst(string source, string target, string replacement, int index = -1)
         {
             if (index == -1)
                 index = source.IndexOf(target);
@@ -542,11 +560,11 @@ namespace DnDGen.RollGen.PartialRolls
 
         private bool ValidateExpression(string rollExpression)
         {
-            var expression = ValidateRollsInExpression(rollExpression);
-            if (!expression.Valid)
+            var (ExpressionWithoutRolls, Valid) = ValidateRollsInExpression(rollExpression);
+            if (!Valid)
                 return false;
 
-            var valid = expressionEvaluator.IsValid(expression.ExpressionWithoutRolls);
+            var valid = expressionEvaluator.IsValid(ExpressionWithoutRolls);
             return valid;
         }
 
@@ -637,5 +655,10 @@ namespace DnDGen.RollGen.PartialRolls
 
             return (expressionWithReplacedRolls, true);
         }
+
+        [GeneratedRegex(RegexConstants.StrictRollPattern)]
+        private static partial Regex StrictRollPartialRegex();
+        [GeneratedRegex(RegexConstants.BooleanExpressionPattern)]
+        private static partial Regex BooleanExpressionPartialRegex();
     }
 }

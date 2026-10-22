@@ -51,12 +51,12 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
         [TestCase("-0.25", 0)]
         [TestCase(" 9266 ", 9266)]
         [TestCase("9266.90210", 9267)]
-        [TestCase("10000000000", 10000000000)]
+        [TestCase("1000000000", 1_000_000_000)]
         [TestCase(".5", 0)]
         [TestCase("-.5", -0)]
         [TestCase("+.5", 0)]
         [TestCase("5.", 5)]
-        [TestCase("1e5", 100000)]
+        [TestCase("1e5", 100_000)]
         public void Evaluate_ConvertsNumberToRequestedType(string expression, int expected)
         {
             var result = proxy.Evaluate<int>(expression);
