@@ -40,10 +40,6 @@ steps:
     command: test
     projects: 'DnDGen.RollGen.Tests.Integration.Stress/DnDGen.RollGen.Tests.Integration.Stress.csproj'
     arguments: '-v normal --collect "Code Coverage" --settings CodeCoverage.runsettings --configuration Stress'
-- task: PublishCodeCoverageResults@2
-  displayName: Publish Code Coverage
-  inputs:
-    summaryFileLocation: '$(Agent.TempDirectory)/**/*.cobertura.xml'
 
 - task: PowerShell@2
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))

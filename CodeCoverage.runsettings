@@ -4,7 +4,6 @@
     <DataCollectors>
       <DataCollector friendlyName="Code Coverage">
         <Configuration>
-          <Format>cobertura</Format>
           <IncludeTestAssembly>false</IncludeTestAssembly>
           <CodeCoverage>
             <ModulePaths>
