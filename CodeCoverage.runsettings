@@ -12,6 +12,11 @@
                 <ModulePath>.*[\\/]DnDGen\.RollGen\.dll$</ModulePath>
               </Include>
             </ModulePaths>
+            <Sources>
+              <Exclude>
+                <Source>.*\.g\.cs$</Source>
+              </Exclude>
+            </Sources>
           </CodeCoverage>
         </Configuration>
       </DataCollector>
