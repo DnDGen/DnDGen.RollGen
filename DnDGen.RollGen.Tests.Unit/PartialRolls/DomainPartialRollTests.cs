@@ -3218,6 +3218,17 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92d6.6"));
         }
 
+        [TestCase(true, 90210)]
+        [TestCase(false, -90210)]
+        public void AsTrueOrFalse_WithRollThreshold_EvaluatesBooleanExpression(bool evaluated, int threshold)
+        {
+            BuildPartialRoll("9266 >= 42");
+            mockExpressionEvaluator.Setup(e => e.Evaluate<bool>("9266 >= 42")).Returns(evaluated);
+
+            var result = partialRoll.AsTrueOrFalse(threshold);
+            Assert.That(result, Is.EqualTo(evaluated));
+        }
+
         [Test]
         public void AsTrueOrFalse_ThrowsException_WhenQuantityIsDecimal()
         {

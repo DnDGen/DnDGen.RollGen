@@ -505,6 +505,15 @@ namespace DnDGen.RollGen.Tests.Integration
                 Assert.That(() => roll.AsTrueOrFalse(), Throws.Nothing);
         }
 
+        [Repeat(100)]
+        [TestCase("1d2 >= 1", 9266, true)]
+        [TestCase("1d2 >= 3", -9266, false)]
+        public void AsTrueOrFalse_WithRollThreshold_EvaluatesBooleanExpression(string rollExpression, int threshold, bool expected)
+        {
+            var result = dice.Roll(rollExpression).AsTrueOrFalse(threshold);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
         [TestCase("4d6k3", 1, 6, 3)]
         [TestCase("(4d6k3)", 1, 6, 3)]
         [TestCase("((4d6k3))", 1, 6, 3)]
