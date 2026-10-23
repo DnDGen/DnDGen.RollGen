@@ -1,4 +1,5 @@
 ﻿using DnDGen.RollGen.Expressions;
+using DnDGen.RollGen.Tests.Unit.TestData;
 using NUnit.Framework;
 using System.Text.RegularExpressions;
 
@@ -24,27 +25,12 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
             Assert.That(constant, Is.EqualTo(value));
         }
 
-        [TestCase("1d2", true)]
-        [TestCase(" 1 d 2 ", true)]
-        [TestCase("d2", true)]
-        [TestCase(" d 2 ", true)]
         [TestCase("1 and 2", false)]
-        [TestCase("1d2k3", true)]
-        [TestCase("1d2k3!", true)]
-        [TestCase(" 1 d 2 k 3 ", true)]
-        [TestCase(" 1 d 2 k 3 ! ", true)]
         [TestCase("d2k3", true)]
         [TestCase(" d 2 k 3 ", true)]
         [TestCase("This is not a match", false)]
-        [TestCase("4d6k3", true)]
         [TestCase(" 4 d 6 k 3 ", true)]
-        [TestCase("1d2!", true)]
-        [TestCase(" 1 d 2 ! ", true)]
-        [TestCase("1d2!k3", true)]
-        [TestCase(" 1 d 2 ! k 3 ", true)]
-        [TestCase("3d6t1", true)]
         [TestCase(" 3 d 6 t 1 ", true)]
-        [TestCase("3d6t1t2", true)]
         [TestCase(" 3 d 6 t 1 t 2 ", true)]
         [TestCase(" 3 d 6 t 1 : 2 ", true)]
         [TestCase("3d6t1:2t3:4k5", true)]
@@ -79,36 +65,22 @@ namespace DnDGen.RollGen.Tests.Unit.Expressions
         [TestCase("1d2-3d4", true, false)]
         [TestCase("Roll this: -5d6", true, false)]
         //From README
-        [TestCase("4d6", true)]
-        [TestCase("92d66", true)]
         [TestCase("5+3d4*2", true, false)]
         [TestCase("((1d2)d5k1)d6", true, false)]
-        [TestCase("4d6k3", true)]
-        [TestCase("3d4k2", true)]
         [TestCase("5+3d4*3", true, false)]
         [TestCase("1d6+3", true, false)]
         [TestCase("1d8+1d2-1", true, false)]
         [TestCase("4d3-3", true, false)]
-        [TestCase("4d6!", true)]
-        [TestCase("3d4!", true)]
-        [TestCase("3d4!k2", true)]
-        [TestCase("3d4!e3", true)]
-        [TestCase("3d4e1e2k2", true)]
-        [TestCase("3d6t1", true)]
-        [TestCase("3d6t1t5", true)]
-        [TestCase("3d6!t1k2", true)]
         [TestCase("3d6t1:2", true)]
-        [TestCase("4d3t2k1", true)]
-        [TestCase("4d3k1t2", true)]
-        [TestCase("4d3!t2k1", true)]
-        [TestCase("4d3!k1t2", true)]
-        [TestCase("4d3t2!k1", true)]
-        [TestCase("4d3k1!t2", true)]
-        [TestCase("4d3t2k1!", true)]
-        [TestCase("4d3k1t2!", true)]
         public void StrictRollRegexMatches(string source, bool isMatch, bool verifyMatchContents = true)
         {
             VerifyMatch(RegexConstants.StrictRollPattern, source, isMatch, verifyMatchContents);
+        }
+
+        [TestCaseSource(typeof(RollTestData), nameof(RollTestData.SingleRollsTestCases))]
+        public void StrictRollRegexMatches_SingleRoll(string roll)
+        {
+            VerifyMatch(RegexConstants.StrictRollPattern, roll, true, true);
         }
 
         private void VerifyMatch(string pattern, string source, bool isMatch, bool verifyMatchContents = true)

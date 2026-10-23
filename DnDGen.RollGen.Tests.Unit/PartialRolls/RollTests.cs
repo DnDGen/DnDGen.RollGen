@@ -1,4 +1,5 @@
 ﻿using DnDGen.RollGen.PartialRolls;
+using DnDGen.RollGen.Tests.Unit.TestData;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -121,21 +122,9 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
         [TestCase("!", false)]
         [TestCase("1", false)]
         [TestCase("1!", false)]
-        [TestCase("1d2", true)]
-        [TestCase("1d2!", true)]
         [TestCase("1d", false)]
         [TestCase("1d!", false)]
-        [TestCase(" 1 d 2 ", true)]
-        [TestCase(" 1 d 2 ! ", true)]
-        [TestCase("1d2k3", true)]
-        [TestCase("1d2!k3", true)]
-        [TestCase("1d2k3!", true)]
-        [TestCase(" 1 d 2 k 3 ", true)]
-        [TestCase(" 1 d 2 ! k 3 ", true)]
-        [TestCase(" 1 d 2 k 3 ! ", true)]
-        [TestCase("d2", true)]
         [TestCase("d2!", true)]
-        [TestCase(" d 2 ", true)]
         [TestCase(" d 2 ! ", true)]
         [TestCase("Not parsable", false)]
         [TestCase("1d2+3", false)]
@@ -151,40 +140,23 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
         [TestCase(" 12 30 d 4 56 ! k 7 8 9 ", false)]
         [TestCase(" 12 30 d 4 56 k 7 8 9 ! ", false)]
         [TestCase("3d6", true)]
-        [TestCase("4d6k3", true)]
-        [TestCase("3d6t1", true)]
-        [TestCase("3d6t1t2", true)]
         [TestCase("4d6!t1t2k3", true)]
         //From README
-        [TestCase("4d6", true)]
-        [TestCase("92d66", true)]
         [TestCase("5+3d4*2", false)]
         [TestCase("((1d2)d5k1)d6", false)]
-        [TestCase("4d6k3", true)]
-        [TestCase("3d4k2", true)]
         [TestCase("5+3d4*3", false)]
         [TestCase("1d6+3", false)]
         [TestCase("1d8+1d2-1", false)]
         [TestCase("4d3-3", false)]
-        [TestCase("4d6!", true)]
-        [TestCase("3d4!", true)]
-        [TestCase("3d4!k2", true)]
-        [TestCase("3d4!e3", true)]
-        [TestCase("3d4e1e2k2", true)]
-        [TestCase("3d6t1", true)]
-        [TestCase("3d6t1t5", true)]
-        [TestCase("3d6!t1k2", true)]
-        [TestCase("4d3t2k1", true)]
-        [TestCase("4d3k1t2", true)]
-        [TestCase("4d3!t2k1", true)]
-        [TestCase("4d3!k1t2", true)]
-        [TestCase("4d3t2!k1", true)]
-        [TestCase("4d3k1!t2", true)]
-        [TestCase("4d3t2k1!", true)]
-        [TestCase("4d3k1t2!", true)]
         public void CanParse(string expression, bool canParse)
         {
             Assert.That(Roll.CanParse(expression), Is.EqualTo(canParse));
+        }
+
+        [TestCaseSource(typeof(RollTestData), nameof(RollTestData.SingleRollsTestCases))]
+        public void CanParse_ReturnsTrue_ForSingleRoll(string roll)
+        {
+            Assert.That(Roll.CanParse(roll), Is.True);
         }
 
         [TestCase(-1, false)]
