@@ -1410,6 +1410,16 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             Assert.That(result, Is.True);
         }
 
+        [Test]
+        public void AsTrueOrFalse_WithRollThreshold_ThrowsException_WhenBooleanExpression()
+        {
+            BuildPartialRoll("9266 >= 42");
+
+            Assert.That(() => partialRoll.AsTrueOrFalse(90210),
+                Throws.InvalidOperationException.With.Message.EqualTo("Cannot apply a roll threshold to the boolean expression (9266 >= 42)"));
+            mockExpressionEvaluator.Verify(e => e.Evaluate<bool>(It.IsAny<string>()), Times.Never);
+        }
+
         [TestCase(2, 2)]
         [TestCase(3, 2)]
         [TestCase(3, 3)]
@@ -3216,17 +3226,6 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
 
             Assert.That(() => partialRoll.AsPotentialAverage(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92d6.6"));
-        }
-
-        [TestCase(true, 90210)]
-        [TestCase(false, -90210)]
-        public void AsTrueOrFalse_WithRollThreshold_EvaluatesBooleanExpression(bool evaluated, int threshold)
-        {
-            BuildPartialRoll("9266 >= 42");
-            mockExpressionEvaluator.Setup(e => e.Evaluate<bool>("9266 >= 42")).Returns(evaluated);
-
-            var result = partialRoll.AsTrueOrFalse(threshold);
-            Assert.That(result, Is.EqualTo(evaluated));
         }
 
         [Test]

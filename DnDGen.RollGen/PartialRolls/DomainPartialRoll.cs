@@ -115,7 +115,7 @@ namespace DnDGen.RollGen.PartialRolls
         public override bool AsTrueOrFalse(int threshold)
         {
             if (booleanExpressionRegex.IsMatch(CurrentRollExpression))
-                return EvaluateExpressionWithRollsAsTrueOrFalse(CurrentRollExpression);
+                throw new InvalidOperationException($"Cannot apply a roll threshold to the boolean expression {CurrentRollExpression}");
 
             var sum = AsSum<double>();
             return sum >= threshold;
