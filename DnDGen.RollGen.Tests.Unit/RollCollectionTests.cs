@@ -497,20 +497,29 @@ namespace DnDGen.RollGen.Tests.Unit
             Assert.That(otherCollection, Is.Not.EqualTo(collection));
         }
 
-        private static RollCollection BuildEqualCollection()
+        private static RollCollection BuildRollCollection()
         {
-            var equalCollection = new RollCollection { Adjustment = 42 };
-            equalCollection.Rolls.Add(new RollPrototype { Quantity = 9266, Die = 100 });
-            equalCollection.Rolls.Add(new RollPrototype { Quantity = 96, Die = 783, Multiplier = 8245 });
+            var rollCollection = new RollCollection { Adjustment = 42 };
+            rollCollection.Rolls.Add(new RollPrototype { Quantity = 9266, Die = 100 });
+            rollCollection.Rolls.Add(new RollPrototype { Quantity = 96, Die = 783, Multiplier = 8245 });
 
-            return equalCollection;
+            return rollCollection;
+        }
+
+        [Test]
+        public void Equals_ReturnsTrue_WhenRollsAreEqual()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+
+            Assert.That(otherCollection, Is.EqualTo(equalCollection));
         }
 
         [Test]
         public void Equals_ReturnsTrue_WhenRollsAreAddedInADifferentOrder()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls.Reverse();
 
             Assert.That(otherCollection, Is.EqualTo(equalCollection));
@@ -519,8 +528,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenQuantityDiffers()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls[0].Quantity = 666;
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -529,8 +538,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenDieDiffers()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls[0].Die = 666;
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -539,8 +548,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenMultiplierDiffers()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls[1].Multiplier = 666;
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -549,8 +558,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenRollIsNotMultiplied()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls[1].Multiplier = 1;
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -559,8 +568,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenAdjustmentDiffers()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Adjustment = 666;
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -569,8 +578,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenAdjustmentIsNegated()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Adjustment = -42;
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -579,8 +588,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenThereIsAnExtraRoll()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls.Add(new RollPrototype { Quantity = 666, Die = 666 });
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -589,8 +598,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenARollIsMissing()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls.RemoveAt(1);
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -599,8 +608,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenThereAreNoRolls()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls.Clear();
 
             Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
@@ -609,7 +618,7 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void Equals_ReturnsFalse_WhenNotRollCollection()
         {
-            var equalCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
 
             Assert.That(equalCollection.Equals(equalCollection.Build()), Is.False);
             Assert.That(equalCollection.Equals(null), Is.False);
@@ -618,8 +627,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsEqual_ForEqualCollections()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
 
             Assert.That(otherCollection.GetHashCode(), Is.EqualTo(equalCollection.GetHashCode()));
         }
@@ -627,8 +636,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsEqual_WhenRollsAreAddedInADifferentOrder()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls.Reverse();
 
             Assert.That(otherCollection.GetHashCode(), Is.EqualTo(equalCollection.GetHashCode()));
@@ -637,8 +646,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenQuantityDiffers()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls[0].Quantity = 666;
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
@@ -647,8 +656,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenDieDiffers()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls[0].Die = 666;
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
@@ -657,8 +666,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenMultiplierDiffers()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls[1].Multiplier = 666;
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
@@ -667,8 +676,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenRollIsNotMultiplied()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls[1].Multiplier = 1;
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
@@ -677,8 +686,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenAdjustmentDiffers()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Adjustment = 666;
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
@@ -687,8 +696,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenAdjustmentIsNegated()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Adjustment = -42;
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
@@ -697,8 +706,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenThereIsAnExtraRoll()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls.Add(new RollPrototype { Quantity = 666, Die = 666 });
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
@@ -707,8 +716,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenARollIsMissing()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls.RemoveAt(1);
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
@@ -717,8 +726,8 @@ namespace DnDGen.RollGen.Tests.Unit
         [Test]
         public void GetHashCode_IsNotEqual_WhenThereAreNoRolls()
         {
-            var equalCollection = BuildEqualCollection();
-            var otherCollection = BuildEqualCollection();
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
             otherCollection.Rolls.Clear();
 
             Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
