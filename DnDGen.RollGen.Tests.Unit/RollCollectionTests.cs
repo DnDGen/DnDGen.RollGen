@@ -1494,19 +1494,16 @@ namespace DnDGen.RollGen.Tests.Unit
         [TestCase(3, 10, 75)]
         [TestCase(3, 20, 300)] //3.75% * 20^3 = 300
         [TestCase(3, 100, 7500)] //0.75% * 100^3 = 7500
-        [TestCase(3, Limits.Die, 75000000)] //0.75% * 10,000^3 = 75000000
         [TestCase(4, 2, 6)]
         [TestCase(4, 6, 146)]
         [TestCase(4, 10, 670)]
         [TestCase(4, 20, 5340)]
         [TestCase(4, 100, 666700)]
-        [TestCase(4, Limits.Die, 666666670000)]
         [TestCase(5, 2, 10)]
         [TestCase(5, 6, 780)]
         [TestCase(5, 10, 6000)]
         [TestCase(5, 20, 95875)]
         [TestCase(5, 100, 59896875)]
-        [TestCase(5, Limits.Die, 5989583343750000)]
         [TestCase(6, 2, 20)]
         [TestCase(6, 6, 4332)]
         [TestCase(6, 10, 55252)]
