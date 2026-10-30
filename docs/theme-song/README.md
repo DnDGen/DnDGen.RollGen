@@ -77,12 +77,12 @@ Roll again!
 
 [Post-Chorus - Spoken]
 Now look at that roll:
-Four-d-six, exclamation,
-T-1, K-3...
+Three-d-six, exclamation,
+T-One, K-Two...
 Whatever could it mean?
 
 [Verse 2]
-KEEP! Keep the highest three
+KEEP! Keep the highest two
 And let the lowest go
 TRANSFORM! If a one is rolled
 We will count it as a six
@@ -189,8 +189,8 @@ Roll again...
 | Add them up and drink them down | Reference: "Rolls, and returns the total" |
 | Ten thousand dice in one roll! | Reference: "10,000, the most dice in one roll" |
 | Roll again! | Reference: "rolls it again, and counts both" |
-| Now look at that roll:<br>Four-d-six, exclamation,<br>T-1, K-3...<br>Whatever could it mean? | Use: "4d6k3" and "3d6!t1k2" |
-| KEEP! Keep the highest three<br>And let the lowest go | Use: "Returns the highest 3 rolls" and Reference: "Keeps only the highest rolls, this many of them." |
+| Now look at that roll:<br>Three-d-six, exclamation,<br>T-One, K-Two...<br>Whatever could it mean? | Use: "3d6!t1k2" |
+| KEEP! Keep the highest two<br>And let the lowest go | Use: "Returns the sum of 2 highest rolls, including bonus rolls from explosion and transforming 1's to 6's" and Reference: "Keeps only the highest rolls, this many of them." |
 | TRANSFORM! If a one is rolled<br>We will count it as a six | Use: "If a 1 is rolled, we will count it as a 6." |
 | EXPLODE! If a six is rolled<br>Then roll and add again | Use: "If a 6 is rolled, then an additional roll is performed." and Reference: "rolls it again, and counts both" |
 | Exploding dice could roll forever | Reference: "Exploding dice could roll forever" |
