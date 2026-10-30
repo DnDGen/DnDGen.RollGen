@@ -5,7 +5,7 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
     [TestFixture]
     public class d12Tests : ProvidedDiceTests
     {
-        protected override int die => 12;
+        protected override int Die => 12;
         protected override PartialRoll GetRoll(int quantity) => Dice.Roll(quantity).d12();
 
         [Test]

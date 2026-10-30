@@ -90,9 +90,6 @@ namespace DnDGen.RollGen
         /// <returns></returns>
         public long ComputeDistribution()
         {
-            if (Quantities == 0)
-                return 0;
-
             if (Quantities == 1)
                 return 1;
 
@@ -111,21 +108,6 @@ namespace DnDGen.RollGen
             var mode = (upper + Quantities) / 2;
             var rolls = new Dictionary<int, long>() { { mode, 1 } };
             var remainingMax = upper;
-
-            //HACK: This means we are going to do too many iterations below
-            //The Die Limit is only used when computing extra-large ranges with non-standard dice
-            //Otherwise, non-standard dice should always have a quantity of 1
-            //Therefore, we can just shortcut this specific usecase
-            if (validRolls[0].Die == Limits.Die)
-            {
-                return validRolls[0].Quantity switch
-                {
-                    3 => 75_000_000, //0.75% * 10,000^3 = 75,000,000
-                    4 => 666_666_670_000,
-                    5 => 5_989_583_343_750_000,
-                    _ => long.MaxValue
-                };
-            }
 
             for (var i = 0; i < validRolls.Count; i++)
             {

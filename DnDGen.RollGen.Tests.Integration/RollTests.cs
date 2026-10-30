@@ -497,11 +497,22 @@ namespace DnDGen.RollGen.Tests.Integration
         [TestCase("(8=6)", false)]
         public void SpecificBooleanRolls(string rollExpression, bool? expectedValue = null)
         {
-            var roll = dice.Roll(rollExpression).AsTrueOrFalse();
-            Assert.That(roll, Is.True.Or.False);
+            var roll = dice.Roll(rollExpression);
 
             if (expectedValue.HasValue)
-                Assert.That(roll, Is.EqualTo(expectedValue.Value));
+                Assert.That(roll.AsTrueOrFalse(), Is.EqualTo(expectedValue.Value));
+            else
+                Assert.That(() => roll.AsTrueOrFalse(), Throws.Nothing);
+        }
+
+        [TestCase("2d6 >= 1d12")]
+        [TestCase("1d2 >= 3")]
+        public void AsTrueOrFalse_WithRollThreshold_ThrowsException_WhenBooleanExpression(string rollExpression)
+        {
+            var roll = dice.Roll(rollExpression);
+
+            Assert.That(() => roll.AsTrueOrFalse(9266),
+                Throws.InvalidOperationException.With.Message.EqualTo($"Cannot apply a roll threshold to the boolean expression ({rollExpression})"));
         }
 
         [TestCase("4d6k3", 1, 6, 3)]

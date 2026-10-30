@@ -64,6 +64,7 @@ namespace DnDGen.RollGen
         /// </summary>
         /// <param name="threshold">The inclusive lower-bound roll value of success</param>
         /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">The roll is a boolean expression, such as 2d6 >= 1d12. Use AsTrueOrFalse() instead.</exception>
         public abstract bool AsTrueOrFalse(int threshold);
 
         public abstract bool IsValid();

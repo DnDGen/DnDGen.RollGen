@@ -42,7 +42,7 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
             AssertRoll(roll, quantity, die, explode, percentageThreshold, rollThreshold);
         }
 
-        private void AssertRoll(PartialRoll roll, int quantity, int die, int explode, double percentageThreshold, int rollThreshold)
+        private static void AssertRoll(PartialRoll roll, int quantity, int die, int explode, double percentageThreshold, int rollThreshold)
         {
             var rollMin = explode == 1 && die != 1 ? 2 : 1;
             var min = quantity * rollMin;
@@ -55,8 +55,8 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
             Assert.That(roll.AsPotentialMaximum(false), Is.EqualTo(max));
             Assert.That(roll.AsPotentialMaximum(), Is.EqualTo(max * 10));
             Assert.That(roll.AsPotentialAverage(), Is.EqualTo(average));
-            Assert.That(roll.AsTrueOrFalse(percentageThreshold), Is.True.Or.False, "Percentage");
-            Assert.That(roll.AsTrueOrFalse(rollThreshold), Is.True.Or.False, "Roll");
+            Assert.That(() => roll.AsTrueOrFalse(percentageThreshold), Throws.Nothing, "Percentage");
+            Assert.That(() => roll.AsTrueOrFalse(rollThreshold), Throws.Nothing, "Roll");
 
             var rolls = roll.AsIndividualRolls();
 

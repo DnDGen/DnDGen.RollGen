@@ -7,21 +7,11 @@ using System.Text.RegularExpressions;
 
 namespace DnDGen.RollGen
 {
-    internal class DomainDice : Dice
+    internal partial class DomainDice(PartialRollFactory partialRollFactory) : Dice
     {
-        private readonly PartialRollFactory partialRollFactory;
-        private readonly Regex expressionRegex;
-        private readonly Regex strictRollRegex;
-        private readonly Regex lenientRollRegex;
-
-        public DomainDice(PartialRollFactory partialRollFactory)
-        {
-            this.partialRollFactory = partialRollFactory;
-
-            expressionRegex = new Regex(RegexConstants.ExpressionWithoutDieRollsPattern);
-            strictRollRegex = new Regex(RegexConstants.StrictRollPattern);
-            lenientRollRegex = new Regex(RegexConstants.LenientRollPattern);
-        }
+        private readonly Regex expressionRegex = ExpressionWithoutDieRollsPartialRegex();
+        private readonly Regex strictRollRegex = StrictRollPartialRegex();
+        private readonly Regex lenientRollRegex = LenientRollPartialRegex();
 
         public PartialRoll Roll(int quantity = 1)
         {
@@ -89,9 +79,6 @@ namespace DnDGen.RollGen
         {
             var rolls = GetIndividualRolls(roll);
 
-            if (rolls.Any() == false)
-                return "0";
-
             if (rolls.Count() == 1)
                 return rolls.First().ToString();
 
@@ -131,7 +118,7 @@ namespace DnDGen.RollGen
             return partialRoll.AsSum();
         }
 
-        private string ReplaceFirst(string source, string target, string replacement)
+        private static string ReplaceFirst(string source, string target, string replacement)
         {
             var index = source.IndexOf(target);
             source = source.Remove(index, target.Length);
@@ -139,7 +126,7 @@ namespace DnDGen.RollGen
             return source;
         }
 
-        private string Replace(string expression, Regex regex, Func<string, object> createReplacement)
+        private static string Replace(string expression, Regex regex, Func<string, object> createReplacement)
         {
             var expressionWithReplacedRolls = expression;
             var match = regex.Match(expressionWithReplacedRolls);
@@ -159,7 +146,7 @@ namespace DnDGen.RollGen
         public string Describe(string rollExpression, int roll, params string[] descriptions)
         {
             if (descriptions.Length == 0)
-                descriptions = new[] { "Bad", "Good" };
+                descriptions = ["Bad", "Good"];
 
             var minimumRoll = Roll(rollExpression).AsPotentialMinimum();
             var maximumRoll = Roll(rollExpression).AsPotentialMaximum();
@@ -176,12 +163,12 @@ namespace DnDGen.RollGen
             rawIndex = Math.Floor(rawIndex);
 
             var index = Convert.ToInt32(rawIndex);
-            index = Math.Min(index, descriptions.Count() - 1);
+            index = Math.Min(index, descriptions.Length - 1);
 
             return descriptions[index];
         }
 
-        private double GetPercentile(int min, int max, double value)
+        private static double GetPercentile(int min, int max, double value)
         {
             var totalRange = max - min;
             var range = value - min;
@@ -196,5 +183,12 @@ namespace DnDGen.RollGen
         {
             return Roll(rollExpression).IsValid();
         }
+
+        [GeneratedRegex(RegexConstants.ExpressionWithoutDieRollsPattern)]
+        private static partial Regex ExpressionWithoutDieRollsPartialRegex();
+        [GeneratedRegex(RegexConstants.StrictRollPattern)]
+        private static partial Regex StrictRollPartialRegex();
+        [GeneratedRegex(RegexConstants.LenientRollPattern)]
+        private static partial Regex LenientRollPartialRegex();
     }
 }

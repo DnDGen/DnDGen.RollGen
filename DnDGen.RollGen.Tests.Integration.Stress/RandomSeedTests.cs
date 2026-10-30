@@ -19,8 +19,8 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
             dice1 = GetNewInstanceOf<Dice>();
             dice2 = GetNewInstanceOf<Dice>();
 
-            dice1Rolls = new List<int>();
-            dice2Rolls = new List<int>();
+            dice1Rolls = [];
+            dice2Rolls = [];
         }
 
         [Test]

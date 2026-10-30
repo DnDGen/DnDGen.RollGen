@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace DnDGen.RollGen.PartialRolls
 {
-    internal class Roll
+    internal partial class Roll
     {
         public int Quantity { get; set; }
         public int Die { get; set; }
@@ -18,25 +18,21 @@ namespace DnDGen.RollGen.PartialRolls
         private bool QuantityValid => Quantity > 0 && Quantity <= Limits.Quantity;
         private bool DieValid => Die > 0 && Die <= Limits.Die;
         private bool KeepValid => AmountToKeep > -1 && AmountToKeep <= Limits.Quantity;
-        private bool Explode => ExplodeOn.Any();
-        private bool ExplodeValid => !ExplodeOn.Any() || (DieValid && Enumerable.Range(1, Die).Except(ExplodeOn).Any());
-        private bool TransformValid => !Transforms.Any() || Transforms.All(kvp => kvp.Key > 0 && kvp.Key <= Limits.Die);
-
-        public Roll()
-        {
-            ExplodeOn = new List<int>();
-            Transforms = new Dictionary<int, int>();
-        }
+        private bool Explode => ExplodeOn.Count > 0;
+        private bool ExplodeValid => ExplodeOn.Count == 0 || (DieValid && Enumerable.Range(1, Die).Except(ExplodeOn).Any());
+        private bool TransformValid => Transforms.Count == 0 || Transforms.All(kvp => kvp.Key > 0 && kvp.Key <= Limits.Die);
 
         public Roll(string toParse)
         {
-            var sections = new Dictionary<char, List<int>>();
-            sections['q'] = new List<int>();
-            sections['d'] = new List<int>();
-            sections['e'] = new List<int>();
-            sections['t'] = new List<int>();
-            sections[':'] = new List<int>();
-            sections['k'] = new List<int>();
+            var sections = new Dictionary<char, List<int>>
+            {
+                ['q'] = [],
+                ['d'] = [],
+                ['e'] = [],
+                ['t'] = [],
+                [':'] = [],
+                ['k'] = []
+            };
 
             var key = 'q';
             var number = string.Empty;
@@ -53,19 +49,16 @@ namespace DnDGen.RollGen.PartialRolls
                     continue;
                 }
 
-                if (!char.IsDigit(toParse[i]) && !number.Any() && toParse[i] != '-')
+                if (!char.IsDigit(toParse[i]) && number.Length == 0 && toParse[i] != '-')
                 {
                     key = toParse[i];
                     continue;
                 }
-                else if (char.IsDigit(toParse[i]) || (!number.Any() && toParse[i] == '-'))
+                else if (char.IsDigit(toParse[i]) || (number.Length == 0 && toParse[i] == '-'))
                 {
                     number += toParse[i];
                     continue;
                 }
-
-                if (!number.Any())
-                    continue;
 
                 //INFO: This means we are using the "Default" transform to the max die value
                 if (toParse[i] != ':' && key == 't')
@@ -87,7 +80,7 @@ namespace DnDGen.RollGen.PartialRolls
                 sections[':'].Add(sections['d'][0]);
             }
 
-            if (!sections['q'].Any())
+            if (sections['q'].Count == 0)
                 sections['q'].Add(1);
 
             Quantity = sections['q'][0];
@@ -96,11 +89,11 @@ namespace DnDGen.RollGen.PartialRolls
             if (explodeDefault)
                 sections['e'].Add(Die);
 
-            if (sections['k'].Any())
+            if (sections['k'].Count != 0)
                 AmountToKeep = sections['k'][0];
 
-            ExplodeOn = sections['e'].Distinct().ToList();
-            Transforms = new Dictionary<int, int>();
+            ExplodeOn = [.. sections['e'].Distinct()];
+            Transforms = [];
 
             for (var i = 0; i < sections['t'].Count; i++)
             {
@@ -114,7 +107,7 @@ namespace DnDGen.RollGen.PartialRolls
                 return false;
 
             var trimmedSource = toParse.Trim();
-            var strictRollRegex = new Regex(RegexConstants.StrictRollPattern);
+            var strictRollRegex = StrictRollPartialRegex();
             var rollMatch = strictRollRegex.Match(trimmedSource);
 
             return rollMatch.Success && rollMatch.Value == trimmedSource;
@@ -143,7 +136,7 @@ namespace DnDGen.RollGen.PartialRolls
                 rolls.Add(roll);
             }
 
-            if (AmountToKeep > 0 && AmountToKeep < rolls.Count())
+            if (AmountToKeep > 0 && AmountToKeep < rolls.Count)
                 return rolls.OrderByDescending(r => r).Take(AmountToKeep);
 
             return rolls;
@@ -205,7 +198,7 @@ namespace DnDGen.RollGen.PartialRolls
                 min++;
             }
 
-            if (Transforms.Any())
+            if (Transforms.Count != 0)
             {
                 //INFO: This means we are transforming all rolls
                 if (!Enumerable.Range(1, Die).Except(Transforms.Keys).Any())
@@ -243,7 +236,7 @@ namespace DnDGen.RollGen.PartialRolls
                 --max;
             }
 
-            if (Transforms.Any())
+            if (Transforms.Count != 0)
             {
                 var maxTransform = Transforms.Values.Max();
                 max = Math.Max(max, maxTransform);
@@ -282,5 +275,8 @@ namespace DnDGen.RollGen.PartialRolls
 
             return output;
         }
+
+        [GeneratedRegex(RegexConstants.StrictRollPattern)]
+        private static partial Regex StrictRollPartialRegex();
     }
 }

@@ -5,7 +5,7 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
     [TestFixture]
     public class PercentileTests : ProvidedDiceTests
     {
-        protected override int die => 100;
+        protected override int Die => 100;
         protected override PartialRoll GetRoll(int quantity) => Dice.Roll(quantity).Percentile();
 
         [Test]

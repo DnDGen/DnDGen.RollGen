@@ -1410,6 +1410,16 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             Assert.That(result, Is.True);
         }
 
+        [Test]
+        public void AsTrueOrFalse_WithRollThreshold_ThrowsException_WhenBooleanExpression()
+        {
+            BuildPartialRoll("9266 >= 42");
+
+            Assert.That(() => partialRoll.AsTrueOrFalse(90210),
+                Throws.InvalidOperationException.With.Message.EqualTo("Cannot apply a roll threshold to the boolean expression (9266 >= 42)"));
+            mockExpressionEvaluator.Verify(e => e.Evaluate<bool>(It.IsAny<string>()), Times.Never);
+        }
+
         [TestCase(2, 2)]
         [TestCase(3, 2)]
         [TestCase(3, 3)]
@@ -2723,7 +2733,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(1);
             partialRoll.d(1).Explode();
 
-            Assert.That((Func<int>)(() => partialRoll.AsSum()),
+            Assert.That(() => partialRoll.AsSum(),
                 Throws.InstanceOf<InvalidOperationException>().With.Message.EqualTo("1d1e1 is not a valid roll\n\tExplode: Must have at least 1 non-exploded roll"));
         }
 
@@ -2804,7 +2814,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
         public void ParantheticalExpressionThrowsException_WhenParanthesesMismatched()
         {
             BuildPartialRoll("5*((1d2) + 1");
-            Assert.That((Func<int>)(() => partialRoll.AsSum()),
+            Assert.That(() => partialRoll.AsSum(),
                 Throws.InvalidOperationException.With.Message.EqualTo($"No closing paranthesis found for expression '5*((1d2) + 1'"));
         }
 
@@ -3124,7 +3134,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92.66);
             partialRoll.d2();
 
-            Assert.That((Func<double>)(() => partialRoll.AsSum<double>()),
+            Assert.That(() => partialRoll.AsSum<double>(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92.66d2"));
         }
 
@@ -3134,7 +3144,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92);
             partialRoll.d("6.6");
 
-            Assert.That((Func<double>)(() => partialRoll.AsSum<double>()),
+            Assert.That(() => partialRoll.AsSum<double>(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92d6.6"));
         }
 
@@ -3164,7 +3174,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92.66);
             partialRoll.d2();
 
-            Assert.That((Func<double>)(() => partialRoll.AsPotentialMinimum<double>()),
+            Assert.That(() => partialRoll.AsPotentialMinimum<double>(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92.66d2"));
         }
 
@@ -3174,7 +3184,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92);
             partialRoll.d("6.6");
 
-            Assert.That((Func<double>)(() => partialRoll.AsPotentialMinimum<double>()),
+            Assert.That(() => partialRoll.AsPotentialMinimum<double>(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92d6.6"));
         }
 
@@ -3184,7 +3194,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92.66);
             partialRoll.d2();
 
-            Assert.That((Func<double>)(() => partialRoll.AsPotentialMaximum<double>()),
+            Assert.That(() => partialRoll.AsPotentialMaximum<double>(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92.66d2"));
         }
 
@@ -3194,7 +3204,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92);
             partialRoll.d("6.6");
 
-            Assert.That((Func<double>)(() => partialRoll.AsPotentialMaximum<double>()),
+            Assert.That(() => partialRoll.AsPotentialMaximum<double>(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92d6.6"));
         }
 
@@ -3204,7 +3214,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92.66);
             partialRoll.d2();
 
-            Assert.That((Func<double>)(() => partialRoll.AsPotentialAverage()),
+            Assert.That(() => partialRoll.AsPotentialAverage(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92.66d2"));
         }
 
@@ -3214,7 +3224,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92);
             partialRoll.d("6.6");
 
-            Assert.That((Func<double>)(() => partialRoll.AsPotentialAverage()),
+            Assert.That(() => partialRoll.AsPotentialAverage(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92d6.6"));
         }
 
@@ -3224,7 +3234,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             BuildPartialRoll(92.66);
             partialRoll.d2();
 
-            Assert.That((Func<bool>)(() => partialRoll.AsTrueOrFalse()),
+            Assert.That(() => partialRoll.AsTrueOrFalse(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92.66d2"));
         }
 
@@ -3235,7 +3245,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             partialRoll.d("6.6");
             mockExpressionEvaluator.Setup(e => e.Evaluate<double>("6.6")).Returns((string s) => 6.6);
 
-            Assert.That((Func<bool>)(() => partialRoll.AsTrueOrFalse()),
+            Assert.That(() => partialRoll.AsTrueOrFalse(),
                 Throws.ArgumentException.With.Message.EqualTo("Cannot have decimal values for die rolls: 92d6.6"));
         }
 

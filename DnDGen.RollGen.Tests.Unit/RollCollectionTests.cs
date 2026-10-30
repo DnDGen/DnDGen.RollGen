@@ -497,6 +497,242 @@ namespace DnDGen.RollGen.Tests.Unit
             Assert.That(otherCollection, Is.Not.EqualTo(collection));
         }
 
+        private static RollCollection BuildRollCollection()
+        {
+            var rollCollection = new RollCollection { Adjustment = 42 };
+            rollCollection.Rolls.Add(new RollPrototype { Quantity = 9266, Die = 100 });
+            rollCollection.Rolls.Add(new RollPrototype { Quantity = 96, Die = 783, Multiplier = 8245 });
+
+            return rollCollection;
+        }
+
+        [Test]
+        public void Equals_ReturnsTrue_WhenRollsAreEqual()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+
+            Assert.That(otherCollection, Is.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsTrue_WhenRollsAreAddedInADifferentOrder()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls.Reverse();
+
+            Assert.That(otherCollection, Is.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenQuantityDiffers()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls[0].Quantity = 666;
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenDieDiffers()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls[0].Die = 666;
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenMultiplierDiffers()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls[1].Multiplier = 666;
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenRollIsNotMultiplied()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls[1].Multiplier = 1;
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenAdjustmentDiffers()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Adjustment = 666;
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenAdjustmentIsNegated()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Adjustment = -42;
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenThereIsAnExtraRoll()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls.Add(new RollPrototype { Quantity = 666, Die = 666 });
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenARollIsMissing()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls.RemoveAt(1);
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenThereAreNoRolls()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls.Clear();
+
+            Assert.That(otherCollection, Is.Not.EqualTo(equalCollection));
+        }
+
+        [Test]
+        public void Equals_ReturnsFalse_WhenNotRollCollection()
+        {
+            var equalCollection = BuildRollCollection();
+
+            Assert.That(equalCollection.Equals(equalCollection.Build()), Is.False);
+            Assert.That(equalCollection.Equals(null), Is.False);
+        }
+
+        [Test]
+        public void GetHashCode_IsEqual_ForEqualCollections()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+
+            Assert.That(otherCollection.GetHashCode(), Is.EqualTo(equalCollection.GetHashCode()));
+        }
+
+        [Test]
+        public void GetHashCode_IsEqual_WhenRollsAreAddedInADifferentOrder()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls.Reverse();
+
+            Assert.That(otherCollection.GetHashCode(), Is.EqualTo(equalCollection.GetHashCode()));
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenQuantityDiffers()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls[0].Quantity = 666;
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenDieDiffers()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls[0].Die = 666;
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenMultiplierDiffers()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls[1].Multiplier = 666;
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenRollIsNotMultiplied()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls[1].Multiplier = 1;
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenAdjustmentDiffers()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Adjustment = 666;
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenAdjustmentIsNegated()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Adjustment = -42;
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenThereIsAnExtraRoll()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls.Add(new RollPrototype { Quantity = 666, Die = 666 });
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenARollIsMissing()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls.RemoveAt(1);
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
+        [Test]
+        public void GetHashCode_IsNotEqual_WhenThereAreNoRolls()
+        {
+            var equalCollection = BuildRollCollection();
+            var otherCollection = BuildRollCollection();
+            otherCollection.Rolls.Clear();
+
+            Assert.That(otherCollection.GetHashCode(), Is.Not.EqualTo(equalCollection.GetHashCode()), $"{otherCollection} vs {equalCollection}");
+        }
+
         [Test]
         public void Matches_0Rolls()
         {
@@ -1258,19 +1494,16 @@ namespace DnDGen.RollGen.Tests.Unit
         [TestCase(3, 10, 75)]
         [TestCase(3, 20, 300)] //3.75% * 20^3 = 300
         [TestCase(3, 100, 7500)] //0.75% * 100^3 = 7500
-        [TestCase(3, Limits.Die, 75000000)] //0.75% * 10,000^3 = 75000000
         [TestCase(4, 2, 6)]
         [TestCase(4, 6, 146)]
         [TestCase(4, 10, 670)]
         [TestCase(4, 20, 5340)]
         [TestCase(4, 100, 666700)]
-        [TestCase(4, Limits.Die, 666666670000)]
         [TestCase(5, 2, 10)]
         [TestCase(5, 6, 780)]
         [TestCase(5, 10, 6000)]
         [TestCase(5, 20, 95875)]
         [TestCase(5, 100, 59896875)]
-        [TestCase(5, Limits.Die, 5989583343750000)]
         [TestCase(6, 2, 20)]
         [TestCase(6, 6, 4332)]
         [TestCase(6, 10, 55252)]

@@ -352,6 +352,14 @@ namespace DnDGen.RollGen.Tests.Unit
             Assert.That(stopwatch.Elapsed, Is.LessThan(TimeSpan.FromSeconds(1)), $"[{lower},{upper}]");
         }
 
+        [TestCase(5, 1)]
+        [TestCase(90_210, 9266)]
+        public void GetRollWithFewestDice_Throws_WhenLowerIsAboveUpper(int lower, int upper)
+        {
+            Assert.That(() => RollHelper.GetRollWithFewestDice(lower, upper),
+                Throws.ArgumentException.With.Message.EqualTo($"Cannot generate a valid roll for range [{lower},{upper}]"));
+        }
+
         [TestCase(133_851, 2_126_438_624, "REPEAT+7825d100+14d8-21343988", "10000d100", 2147)]
         [TestCase(20_133_851, 2_146_438_624, "REPEAT+7825d100+14d8-1343988", "10000d100", 2147)]
         public void GetRollWithFewestDice_HighUpper(int lower, int upper, string rollTemplate, string repeatTerm, int repeatCount)
@@ -698,6 +706,14 @@ namespace DnDGen.RollGen.Tests.Unit
 
             Assert.That(roll, Is.EqualTo(expectedRoll), $"[{lower},{upper}]");
             Assert.That(stopwatch.Elapsed, Is.LessThan(TimeSpan.FromSeconds(1)), $"[{lower},{upper}]");
+        }
+
+        [TestCase(5, 1)]
+        [TestCase(90_210, 9266)]
+        public void GetRollWithMostEvenDistribution_Throws_WhenLowerIsAboveUpper(int lower, int upper)
+        {
+            Assert.That(() => RollHelper.GetRollWithMostEvenDistribution(lower, upper),
+                Throws.ArgumentException.With.Message.EqualTo($"Cannot generate a valid roll for range [{lower},{upper}]"));
         }
 
         [TestCase(1, 2, 2, "1")]

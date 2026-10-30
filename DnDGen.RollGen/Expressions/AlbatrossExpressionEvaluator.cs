@@ -5,16 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace DnDGen.RollGen.Expressions
 {
-    internal class AlbatrossExpressionEvaluator : ExpressionEvaluator
+    internal partial class AlbatrossExpressionEvaluator(IParser parser) : ExpressionEvaluator
     {
-        private readonly IParser parser;
-        private readonly Regex strictRollRegex;
-
-        public AlbatrossExpressionEvaluator(IParser parser)
-        {
-            this.parser = parser;
-            strictRollRegex = new Regex(RegexConstants.StrictRollPattern);
-        }
+        private readonly Regex strictRollRegex = strictRollPartialRegex();
 
         public T Evaluate<T>(string expression)
         {
@@ -26,9 +19,12 @@ namespace DnDGen.RollGen.Expressions
             {
                 var exp = parser.Build(expression);
                 var evaluation = exp.Eval(null);
-                var evaluatedExpression = Utils.BooleanOrType<T>(evaluation);
 
-                return Utils.ChangeType<T>(evaluatedExpression);
+                //INFO: Booleans convert through their string, so a boolean expression is not silently read as 1 or 0
+                if (evaluation is bool)
+                    evaluation = evaluation.ToString();
+
+                return Utils.ChangeType<T>(evaluation);
             }
             catch (Exception e)
             {
@@ -56,5 +52,8 @@ namespace DnDGen.RollGen.Expressions
                 return false;
             }
         }
+
+        [GeneratedRegex(RegexConstants.StrictRollPattern)]
+        private static partial Regex strictRollPartialRegex();
     }
 }

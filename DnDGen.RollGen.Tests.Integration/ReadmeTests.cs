@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.RollGen.Tests.Integration.TestData;
+using NUnit.Framework;
 using System.Linq;
 
 namespace DnDGen.RollGen.Tests.Integration
@@ -126,40 +127,35 @@ namespace DnDGen.RollGen.Tests.Integration
         [Repeat(100)]
         public void Success()
         {
-            var roll = dice.Roll().Percentile().AsTrueOrFalse();
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll().Percentile().AsTrueOrFalse(), Throws.Nothing);
         }
 
         [Test]
         [Repeat(100)]
         public void CustomPercentageSuccess()
         {
-            var roll = dice.Roll().Percentile().AsTrueOrFalse(.9);
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll().Percentile().AsTrueOrFalse(.9), Throws.Nothing);
         }
 
         [Test]
         [Repeat(100)]
         public void CustomRollSuccess()
         {
-            var roll = dice.Roll().Percentile().AsTrueOrFalse(90);
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll().Percentile().AsTrueOrFalse(90), Throws.Nothing);
         }
 
         [Test]
         [Repeat(100)]
         public void ExpressionSuccess()
         {
-            var roll = dice.Roll("5+3d4*2").AsTrueOrFalse();
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll("5+3d4*2").AsTrueOrFalse(), Throws.Nothing);
         }
 
         [Test]
         [Repeat(100)]
         public void ExplicitExpressionSuccess()
         {
-            var roll = dice.Roll("2d6>=1d12").AsTrueOrFalse();
-            Assert.That(roll, Is.True.Or.False);
+            Assert.That(() => dice.Roll("2d6 >= 1d12").AsTrueOrFalse(), Throws.Nothing);
         }
 
         [Test]
@@ -225,14 +221,14 @@ namespace DnDGen.RollGen.Tests.Integration
         [Test]
         public void OptimizedRollWithMultipliers()
         {
-            var roll = RollHelper.GetRollWithMostEvenDistribution(1, 36, true);
+            var roll = RollHelper.GetRollWithMostEvenDistribution(1, 36, allowMultipliers: true);
             Assert.That(roll, Is.EqualTo("(1d12-1)*3+1d3"));
         }
 
         [Test]
         public void OptimizedRollWithNonstandardDice()
         {
-            var roll = RollHelper.GetRollWithMostEvenDistribution(1, 36, false, true);
+            var roll = RollHelper.GetRollWithMostEvenDistribution(1, 36, allowNonstandardDice: true);
             Assert.That(roll, Is.EqualTo("1d36"));
         }
 
@@ -380,42 +376,7 @@ namespace DnDGen.RollGen.Tests.Integration
             Assert.That(rolls, Is.InRange(3, 18));
         }
 
-        [TestCase("3d6+1", true)]
-        [TestCase("(3)d(6)+1", true)]
-        [TestCase("(1d2)d(3d4)+5d6", true)]
-        [TestCase("10000d10000", true)]
-        [TestCase("(100d100)d(100d100)", true)]
-        [TestCase("(100d100d2)d(100d100)", false)]
-        [TestCase("(100d100)d(100d100d2)", false)]
-        [TestCase("(0)d(6)+1", false)]
-        [TestCase("(3.1)d(6)+1", false)]
-        [TestCase("0d6+1", false)]
-        [TestCase("10001d10000", false)]
-        [TestCase("(100d100+1)d(100d100)", false)]
-        [TestCase("(3)d(-6)+1", false)]
-        [TestCase("(3)d(6.1)+1", false)]
-        [TestCase("3d0+1", false)]
-        [TestCase("10000d10001", false)]
-        [TestCase("(100d100)d(100d100+1)", false)]
-        [TestCase("4d6k3", true)]
-        [TestCase("(4)d(6)k(3)", true)]
-        [TestCase("(4)d(6)k(-1)", false)]
-        [TestCase("(4)d(6)k(3.1)", false)]
-        [TestCase("4d6k10000", true)]
-        [TestCase("4d6k10001", false)]
-        [TestCase("4d6k(100d100+1)", false)]
-        [TestCase("3d6t1", true)]
-        [TestCase("3d6t1t2", true)]
-        [TestCase("3d6t7", true)]
-        [TestCase("3d6t0", false)]
-        [TestCase("3d6t6:0", true)]
-        [TestCase("3d6t10001", false)]
-        [TestCase("3d6t6:10001", true)]
-        [TestCase("avg(1d12, 2d6, 3d4, 4d3, 6d2)", true)]
-        [TestCase("bad(1d12, 2d6, 3d4, 4d3, 6d2)", false)]
-        [TestCase("this is not a roll", false)]
-        [TestCase("this contains 3d6, but is not a roll", false)]
-        [TestCase("9266+90210-42*600/1337%1336+96d(783d82%45+922-2022/337)-min(1d2, 3d4, 5d6)+max(1d2, 3d4, 5d6)*avg(1d2, 3d4, 5d6)", true)]
+        [TestCaseSource(typeof(ExpressionTestData), nameof(ExpressionTestData.ReadmeTestCases))]
         public void IsValid(string rollExpression, bool expected)
         {
             var actual = dice.IsValid(rollExpression);
