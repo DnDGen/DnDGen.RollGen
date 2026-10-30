@@ -39,7 +39,7 @@ Grollen -DnDGen.RollGen Theme-
 ## Style
 
 ```
-Rowdy fantasy tavern drinking song, a stomping Celtic pub folk singalong in a swaying 6/8, Fiddle, tin whistle, accordion and bouzouki over a pounding bodhran and hand claps, Tankards thumping the table on every downbeat, with dice rattling in a cup and clattering across wood as percussion, A warm, raspy, grinning baritone lead, like an innkeeper telling tall tales, A boisterous crowd of gamblers roaring the choruses, with call-and-response shouts, cheers and laughter, A low rumble of distant thunder under the intro and every chorus, Verses quick and patter-like, choruses huge and swaying, A hushed bridge where the dealer calls out the rules and the crowd shouts them back, then a key change into a final chorus with everyone standing on the tables, Lively, warm, live-in-the-room production, Cheerful, a little drunk, and deadly serious about rolling dice
+Fantasy tavern drinking song, a bright, bouncy Celtic folk singalong in a swaying 6/8, Lute, fiddle, tin whistle and accordion over bodhran and hand claps, Tankards thumping the table, with dice rattling in a cup and clattering across wood as percussion, A clear, soaring, theatrical tenor lead: a charming bard who is gloriously tipsy yet nails every note, playful and showy, with a cheeky grin, crisp diction and dazzling vocal runs, A cheering tavern crowd singing along on the choruses, with call-and-response shouts and laughter, A low rumble of distant thunder under the intro and every chorus, Verses quick and patter-like, like a musical-theatre showstopper, choruses huge and swaying, A hushed bridge where the bard calls out the rules and the crowd shouts them back, then a key change into a final chorus with the bard standing on the table, Lively, warm, live-in-the-room production, Joyful, over-the-top, and deadly serious about rolling dice
 ```
 
 ## Lyrics
@@ -75,7 +75,7 @@ Ten thousand dice in one roll!
 Grollen! Grollen!
 Roll again!
 
-[Post-Chorus - Spoken]
+[Post-Chorus - Spoken, the bard with a theatrical flourish]
 Now look at that roll:
 Three-d-six, exclamation,
 T-One, K-Two...
@@ -120,7 +120,7 @@ Subtract it, multiply, divide
 Take the remainder after dividing
 A roll being built, and the calls all chain
 
-[Bridge - hushed, the dealer calls and the crowd shouts back]
+[Bridge - hushed, the bard calls and the crowd shouts back]
 Is the roll valid?
 Quantity is too low!
 (Too low!)
@@ -144,7 +144,7 @@ Somewhere between the lowest and the highest
 Seventeen and later need .NET ten
 Use sixteen if you're still on .NET eight
 
-[Pre-Chorus - the innkeeper calls it out, building to the key change]
+[Pre-Chorus - the bard calls it out, building to the key change]
 Now call it: chain them in a row!
 Chain the dice, left to right they go
 Roll the roiling thunder and you'll know
@@ -162,7 +162,7 @@ If you are not using Ninject
 Grollen! Grollen!
 Roll again!
 
-[Outro - the band drops out, one drunk patron mumbles over a rattling cup]
+[Outro - the band drops out, the bard, finally slurring, over one rattling cup]
 One ghoul an' three zombies...
 (That's lenient!)
 One ghoul and five zombies!
@@ -231,6 +231,11 @@ Nothing generated yet. For the first drafts (v0.1, v0.2, and so on), per the mai
   the Style leans on folk instruments and the crowd.
 - The spoken Post-Chorus is the one deliberate exception: it reads a roll expression aloud so that
   Verse 2 can decode it. If a draft mangles it, say it in words instead.
+- **Name the singer you want.** The first two drafts asked for "a warm, raspy, grinning baritone
+  lead, like an innkeeper", in a "rowdy" song that was "a little drunk", and both came out growly
+  and gravelly. The Style now asks for a clear, theatrical tenor bard who is tipsy yet nails every
+  note: the bard who saw the rogue playing dice in the corner, had far too many drinks, and rolled
+  a natural 20 on Perform.
 
 ## Album Art
 
