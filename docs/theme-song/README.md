@@ -54,15 +54,15 @@ Roll the dice!
 Rolls a set of dice
 As determined by the D20 die system
 Simply use the verbose, fluid syntax
-Four six-sided dice, and add them up
-Chain the dice, evaluated left to right
-Keep the highest three
-And let the others go
+Two, three, four, six,
+Eight, ten, twelve, twenty,
+Even a hundred sides
+Will keep us rolling plenty!
 
 [Pre-Chorus]
+Now call it: true or false!
 True if high, false if low
-(High or low!)
-Roll the percentile and you'll know
+Roll the roiling thunder and you'll know
 (Now you know!)
 
 [Chorus - the whole tavern, call and response]
@@ -75,20 +75,29 @@ Ten thousand dice in one roll!
 Grollen! Grollen!
 Roll again!
 
+[Post-Chorus - Spoken]
+Now look at that roll:
+Four-d-six, exclamation,
+T-1, K-3...
+Whatever could it mean?
+
 [Verse 2]
-If a six is rolled
-Then an additional roll is performed
+KEEP! Keep the highest three
+And let the lowest go
+TRANSFORM! If a one is rolled
+We will count it as a six
+EXPLODE! If a six is rolled
+Then roll and add again
 Exploding dice could roll forever
 (Forever!)
-If a one is rolled
-We will count it as a six
+
 First explode, then transform, then keep
 That's the order of operations
 
 [Pre-Chorus]
-True if high, false if low
-(High or low!)
-Roll the percentile and you'll know
+Now call it: how far can it go?
+The lowest, the highest, the average throw
+Roll the roiling thunder and you'll know
 (Now you know!)
 
 [Chorus - the whole tavern, call and response]
@@ -121,8 +130,10 @@ It explodes on all values!
 (All values!)
 This is not a roll!
 (Not a roll!)
-Ten thousand sides on one die
-And the die is too high!
+Ten thousand dice with ten thousand sides,
+(Ten thousand!)
+But one more die, or one more side,
+And now it's too high!
 
 [Verse 4 - building back up]
 This contains a roll for rolling stats
@@ -132,6 +143,12 @@ Was it bad, or was it good?
 Somewhere between the lowest and the highest
 Seventeen and later need .NET ten
 Use sixteen if you're still on .NET eight
+
+[Pre-Chorus - the innkeeper calls it out, building to the key change]
+Now call it: chain them in a row!
+Chain the dice, left to right they go
+Roll the roiling thunder and you'll know
+(Now you know!)
 
 [Final Chorus - key change, everyone standing on the tables]
 Grollen! Grollen!
@@ -145,11 +162,14 @@ If you are not using Ninject
 Grollen! Grollen!
 Roll again!
 
-[Outro - the band drops out, the crowd murmurs over one rattling cup]
-The average
-The lowest possible result
-The highest possible result
-(Grollen...)
+[Outro - the band drops out, one drunk patron mumbles over a rattling cup]
+One ghoul an' three zombies...
+(That's lenient!)
+One ghoul and five zombies!
+(That's strict!)
+(Grollen... Grollen...)
+Roll the dice...
+Roll again...
 [A last die tumbles and settles, and the thunder rolls away]
 ```
 
@@ -160,20 +180,22 @@ The highest possible result
 | Roll the dice! | Introduction: "Rolls a set of dice" |
 | Rolls a set of dice<br>As determined by the D20 die system | Introduction: "Rolls a set of dice, as determined by the D20 die system." |
 | Simply use the verbose, fluid syntax | Use: "To use RollGen, simply use the verbose, fluid syntax" |
-| Four six-sided dice, and add them up | Use: "dice.Roll(4).d6().AsSum()" |
-| Chain the dice, evaluated left to right | Use: "Evaluated left to right" |
-| Keep the highest three<br>And let the others go | Use: "Returns the highest 3 rolls" and Reference: "Keeps only the highest rolls, this many of them." |
-| True if high, false if low | Use: "Returns true if high (51-100), false if low (1-50)" |
-| Roll the percentile and you'll know | Use: "dice.Roll().Percentile().AsTrueOrFalse()" |
+| Two, three, four, six,<br>Eight, ten, twelve, twenty, | Reference: "Rolls the quantity so far on that die." |
+| Even a hundred sides<br>Will keep us rolling plenty! | Reference: "Rolls the quantity so far on a d100." |
+| Now call it: true or false!<br>True if high, false if low | Use: "Returns true if high (51-100), false if low (1-50)" |
+| Roll the roiling thunder and you'll know | Not from the README: the leitmotif's thunder |
 | Grollen! Grollen! | Not from the README: RollGen's leitmotif from the DnDGen main theme, German for a rumble, or roll, of thunder |
 | Thunder on the table | Not from the README: the leitmotif's thunder, rolling across the tavern table |
 | Add them up and drink them down | Reference: "Rolls, and returns the total" |
 | Ten thousand dice in one roll! | Reference: "10,000, the most dice in one roll" |
 | Roll again! | Reference: "rolls it again, and counts both" |
-| If a six is rolled<br>Then an additional roll is performed | Use: "If a 6 is rolled, then an additional roll is performed." |
+| Now look at that roll:<br>Four-d-six, exclamation,<br>T-1, K-3...<br>Whatever could it mean? | Use: "4d6k3" and "3d6!t1k2" |
+| KEEP! Keep the highest three<br>And let the lowest go | Use: "Returns the highest 3 rolls" and Reference: "Keeps only the highest rolls, this many of them." |
+| TRANSFORM! If a one is rolled<br>We will count it as a six | Use: "If a 1 is rolled, we will count it as a 6." |
+| EXPLODE! If a six is rolled<br>Then roll and add again | Use: "If a 6 is rolled, then an additional roll is performed." and Reference: "rolls it again, and counts both" |
 | Exploding dice could roll forever | Reference: "Exploding dice could roll forever" |
-| If a one is rolled<br>We will count it as a six | Use: "If a 1 is rolled, we will count it as a 6." |
 | First explode, then transform, then keep<br>That's the order of operations | Order of Operations: "this is the order of operations:" and "1. Explode 2. Transform 3. Keep" |
+| Now call it: how far can it go?<br>The lowest, the highest, the average throw | Reference: "The lowest possible result", "The highest possible result", and "The average result." |
 | Give me a range and I'll give you a roll<br>Every whole number, and nothing outside it | Reference: "Builds roll expressions that produce every whole number in a range, and nothing outside it." |
 | With the fewest dice | Reference: "The roll with the fewest dice" |
 | Or the most evenly spread | Reference: "The roll whose results are most evenly spread" |
@@ -186,14 +208,16 @@ The highest possible result
 | Decimals are not allowed for dice operations! | Use: "because decimals are not allowed for dice operations" |
 | It explodes on all values! | Use: "because it explodes on all values" |
 | This is not a roll! | Use: "this is not a roll" |
-| Ten thousand sides on one die<br>And the die is too high! | Reference: "10,000, the most sides on one die" and Use: "because die is too high" |
+| Ten thousand dice with ten thousand sides,<br>But one more die, or one more side,<br>And now it's too high! | Reference: "10,000, the most dice in one roll" and "10,000, the most sides on one die", and Use: "because quantity is too high" and "because die is too high" |
 | This contains a roll for rolling stats | Use: "This contains a roll of 4d6k3 for rolling stats" |
 | Fireball does damage, roll it out | Use: "Fireball does" |
 | Ghouls and zombies, strict or lenient | Notes: "ghouls and 2d4 zombies" |
 | Was it bad, or was it good?<br>Somewhere between the lowest and the highest | Reference: "Describes `roll` by where it falls between the lowest and highest possible results" and "it chooses between `Bad` and `Good`" |
 | Seventeen and later need .NET ten<br>Use sixteen if you're still on .NET eight | Installing: "Version 17 and later require .NET 10. Use version 16.x if you are still on .NET 8." |
+| Now call it: chain them in a row!<br>Chain the dice, left to right they go | Use: "chainedRolls" and "Evaluated left to right" |
 | Through Ninject, or from the factory<br>If you are not using Ninject | Getting `Dice` Objects: "Get an instance through Ninject" and "through `DiceFactory` if you are not using Ninject" |
-| The average<br>The lowest possible result<br>The highest possible result | Reference: "The average result.", "The lowest possible result", and "The highest possible result" |
+| One ghoul an' three zombies...<br>One ghoul and five zombies! | Notes: "1 ghouls an3 zombies" and "1 ghouls and 5 zombies" |
+| Roll the dice...<br>Roll again... | Introduction: "Rolls a set of dice" and Reference: "rolls it again, and counts both" |
 
 ## Suno Notes
 
@@ -205,6 +229,8 @@ Nothing generated yet. For the first drafts (v0.1, v0.2, and so on), per the mai
 - The take that merges is v1. Every update after that Covers the current song instead.
 - DnDGen.Stress's notes still apply: no code in the lyrics, and Suno pulls hard towards metal, so
   the Style leans on folk instruments and the crowd.
+- The spoken Post-Chorus is the one deliberate exception: it reads a roll expression aloud so that
+  Verse 2 can decode it. If a draft mangles it, say it in words instead.
 
 ## Album Art
 
