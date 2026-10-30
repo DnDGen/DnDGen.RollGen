@@ -45,16 +45,18 @@ No additions.
 ## Technology & Release Constraints
 
 - **Stack**: C# on the latest .NET LTS, currently `net10.0`. Albatross.Expression evaluates
-  expressions, and Ninject wires up `Dice`, both as dependencies of the package. NUnit, with Moq
+  expressions, internally, and Ninject wires up `Dice`, in the consumer's kernel or RollGen's own. NUnit, with Moq
   for test doubles and DnDGen.Stress for the stress tests.
 - **Versioning and release**: A NuGet package, versioned and released as the DnDGen constitution
   describes. MAJOR also covers making a valid expression invalid, changing the range of results a
-  roll can produce, and raising the minimum .NET, Ninject, or Albatross.Expression major version.
+  roll can produce, and raising the minimum .NET or Ninject major version. Ninject is MAJOR because
+  consumers wire RollGen into their own kernel; Albatross.Expression is internal, so updating it is
+  MAJOR only when it makes a valid expression invalid.
   On `main`, `cicd/build.yml` builds and runs the unit, IoC, integration, and stress tests (the
   stress tests in the `Stress` configuration) with code coverage, then tags the commit with
   `<Version>`; `cicd/release.yml` publishes to NuGet.org and creates a GitHub release.
 - **README as contract**: The README documents every public member of `Dice`, `PartialRoll`,
-  `RollHelper`, `Limits`, `Utils`, `DiceFactory`, and `RollGenModuleLoader`, including every
+  `RollHelper`, `Limits`, `DiceFactory`, and `RollGenModuleLoader`, including every
   overload, constant, and optional parameter with its default, and the expression syntax that
   `Roll` and `IsValid` accept. Its code samples are checked by the integration `ReadmeTests`. It
   states which .NET version each major version requires. The theme song is in `docs/theme-song`.
