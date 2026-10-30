@@ -2,7 +2,7 @@
 
 Rolls a set of dice, as determined by the D20 die system.
 
-[![Build Status](https://dev.azure.com/dndgen/DnDGen/_apis/build/status%2FDnDGen.RollGen%20-%20Build?branchName=main)](https://dev.azure.com/dndgen/DnDGen/_build/latest?definitionId=13&branchName=main)
+[![Build Status](https://dev.azure.com/dndgen/DnDGen/_apis/build/status%2FDnDGen.RollGen%20-%20Build?branchName=main)](https://dev.azure.com/dndgen/DnDGen/_build/latest?definitionId=13&branchName=main) [![Theme Song](https://img.shields.io/badge/theme_song-Suno-ff69b4)](https://suno.com/s/RvnVPcPR4ZTGIEt7)
 
 ## Installing
 
@@ -293,6 +293,6 @@ Builds roll expressions that produce every whole number in a range, and nothing 
 
 ## Theme Song
 
-DnDGen.RollGen has its own theme song: *Grollen -DnDGen.RollGen Theme-*, a tavern gambling and drinking song.
+DnDGen.RollGen has its own theme song: [Grollen -DnDGen.RollGen Theme-](https://suno.com/s/RvnVPcPR4ZTGIEt7), a tavern gambling and drinking song.
 It follows this README, so a change here may need the song updated too.
 See the song's [lyrics, notes, and update procedure](https://github.com/DnDGen/DnDGen.RollGen/blob/main/docs/theme-song/README.md).

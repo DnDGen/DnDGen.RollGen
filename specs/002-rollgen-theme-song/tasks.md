@@ -42,9 +42,9 @@ changes that make them pass (II).
 - [X] T007 (maintainer) Review the draft lyrics and style before anything is generated
 - [X] T008 [US3] Draw the album art, recoloured from the main theme's cover, and render it
 - [X] T009 (maintainer) Approve the album art
-- [ ] T010 (maintainer) Generate drafts in Suno, each Sampling the main theme's "Rogante
+- [X] T010 (maintainer) Generate drafts in Suno, each Sampling the main theme's "Rogante
   Marendor" snippet (3:00.0 to 3:17.1) with Variety all the way down; pick and publish the take
-- [ ] T011 (maintainer) Add the Suno link to the record (the cover and Listen on Suno) and the
+- [X] T011 (maintainer) Add the Suno link to the record (the cover and Listen on Suno) and the
   README (the badge and the Theme Song section), and record what was learned in Suno Notes
 
 ## Phase 4: The README
@@ -55,5 +55,5 @@ changes that make them pass (II).
 
 ## Phase 5: Polish
 
-- [ ] T014 Once T011 is done, run every test project and confirm coverage of `DnDGen.RollGen.dll`
+- [X] T014 Once T011 is done, run every test project and confirm coverage of `DnDGen.RollGen.dll`
   is still 100% line and branch

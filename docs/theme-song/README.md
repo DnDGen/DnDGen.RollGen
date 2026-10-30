@@ -1,12 +1,12 @@
 # Grollen -DnDGen.RollGen Theme-
 
-![Grollen album art](cover.png)
+[![Grollen album art](cover.png)](https://suno.com/s/RvnVPcPR4ZTGIEt7)
 
 The DnDGen.RollGen theme song: a tavern gambling and drinking song, where the dice roll like thunder across the table.
 Its lyrics come from the [DnDGen.RollGen README](https://github.com/DnDGen/DnDGen.RollGen/blob/main/README.md), sung in plain English,
 and its chorus brings back RollGen's leitmotif, *Grollen*, from the [DnDGen main theme](https://github.com/DnDGen/.github/blob/main/theme-song/README.md).
 
-**Not on Suno yet.** The maintainer generates the song from this page; see Suno Notes.
+**Listen on [Suno](https://suno.com/s/RvnVPcPR4ZTGIEt7).**
 
 ## Updating
 
@@ -221,22 +221,26 @@ Roll again...
 
 ## Suno Notes
 
-Nothing generated yet. For the first drafts (v0.1, v0.2, and so on), per the main theme's
-[New Theme Songs](https://github.com/DnDGen/.github/blob/main/theme-song/README.md#new-theme-songs):
+Lessons from generating this song, for the next update:
 
-- Make a fresh generation from the Title, Style, and Lyrics above that Samples the main theme's
-  "Rogante Marendor" snippet, 3:00.0 to 3:17.1, with Variety all the way down.
-- The take that merges is v1. Every update after that Covers the current song instead.
-- DnDGen.Stress's notes still apply: no code in the lyrics, and Suno pulls hard towards metal, so
-  the Style leans on folk instruments and the crowd.
-- The spoken Post-Chorus is the one deliberate exception: it reads a roll expression aloud so that
-  Verse 2 can decode it. If a draft mangles it, say it in words instead.
-- **Name the singer you want.** The first two drafts asked for "a warm, raspy, grinning baritone
-  lead, like an innkeeper", in a "rowdy" song that was "a little drunk", and both came out growly
+- **Drafts and the Sample.** Every draft before this song first merged was a fresh generation,
+  Sampling the main theme's "Rogante Marendor" snippet (3:00.0 to 3:17.1) with Variety all the way
+  down, per the main theme's
+  [New Theme Songs](https://github.com/DnDGen/.github/blob/main/theme-song/README.md#new-theme-songs).
+  This take is v1; every update from here Covers it.
+- **Name the singer you want.** The first drafts asked for "a warm, raspy, grinning baritone
+  lead, like an innkeeper", in a "rowdy" song that was "a little drunk", and came out growly
   and gravelly. A clear, theatrical tenor bard, "tipsy yet nails every note", was better but still
-  shouty: "soaring", "showstopper", and "over-the-top" all ask for volume. The Style now asks for
-  a sober, elegant mezzo-soprano bard who is "never shouting", and gives all the shouting to a
+  shouty: "soaring", "showstopper", and "over-the-top" all ask for volume. What worked was a
+  sober, elegant mezzo-soprano bard who is "never shouting", with all the shouting given to a
   drunk crowd that loves every word, even though she is singing a README.
+- **The thunder arrived with her.** Every Style asked for distant thunder, but only the drafts with
+  the female lead actually played it.
+- **The bard shreds.** Nothing asked for a solo, but she plays lute (or something like a ukulele)
+  like nobody's business. Keep the Style as it is so a Cover keeps her.
+- **No code in the lyrics**, as DnDGen.Stress learned, except the spoken Post-Chorus, which reads
+  the README's exploding, transforming, kept roll aloud so that Verse 2 can decode it. If a Cover
+  mangles it, say it in words instead.
 
 ## Album Art
 
