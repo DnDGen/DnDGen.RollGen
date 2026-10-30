@@ -26,7 +26,7 @@ reason before the README changes that make them pass (II).
 
 ## Phase 2: User Story 1 - A new or changed member can't go undocumented (Priority: P1) 🎯 MVP
 
-- [ ] T002 (maintainer) Approve the test list. It is DnDGen.Stress's approved list for the same
+- [X] T002 (maintainer) Approve the test list. It is DnDGen.Stress's approved list for the same
   feature, without the option cases, since RollGen's defaults are in its signatures:
   1. `Constructors_AreAllDocumented`: if I add, remove, or change a public constructor, I expect
      the README's Constructor tables to list exactly the constructors there are, and I'll confirm

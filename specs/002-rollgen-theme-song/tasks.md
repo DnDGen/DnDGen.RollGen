@@ -24,7 +24,7 @@ changes that make them pass (II).
 
 ## Phase 2: Tests
 
-- [ ] T003 (maintainer) Approve the test list. It is DnDGen.Stress's approved list, with RollGen's
+- [X] T003 (maintainer) Approve the test list. It is DnDGen.Stress's approved list, with RollGen's
   names:
   - Record: `HasCorrectSectionsInOrder`; `SunoField_FitsSunoLimit` for Title, Style, and Lyrics;
     `Sources_HasCorrectTable`; `Sources_EveryQuotedPhraseIsStillInTheReadme`;
