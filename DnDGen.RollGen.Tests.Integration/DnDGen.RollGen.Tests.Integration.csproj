@@ -12,4 +12,12 @@
   <ItemGroup>
     <ProjectReference Include="..\DnDGen.RollGen\DnDGen.RollGen.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" Link="README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\docs\**\*.md;..\docs\**\*.png" LinkBase="docs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

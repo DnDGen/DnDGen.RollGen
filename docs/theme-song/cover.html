@@ -1,0 +1,100 @@
+<!doctype html>
+<!--
+  Album art for "Grollen -DnDGen.RollGen Theme-".
+  Open in a browser to view, or render to a 1500x1500 PNG with headless Edge or Chrome:
+    msedge --headless --hide-scrollbars --allow-file-access-from-files --window-size=1500,1500 --screenshot=cover.png cover.html
+  The d20 shape is the dndgen.com loading spinner (DnDGen.Web: dndgen-web/src/assets/loadingDice.svg),
+  originally from https://gist.github.com/hperantunes/f4c2fd407c2ea74c6c9d
+  Title font: Cinzel (Cinzel.ttf, SIL Open Font License - see Cinzel-OFL.txt).
+  Based on the main theme's cover in DnDGen/.github theme-song/cover.html, recoloured for the tavern: the ghost
+  copies are the d20 tumbling across the table, the roll of thunder that RollGen's leitmotif is named for.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>@font-face{font-family:Cinzel;src:url("Cinzel.ttf") format("truetype");font-weight:400 900}</style>
+<style>html,body{margin:0;background:#080503}svg{display:block}</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1500" viewBox="0 0 1500 1500">
+<defs>
+  <radialGradient id="bg" cx="50%" cy="45%" r="72%">
+    <stop offset="0" stop-color="#5a3412"/>
+    <stop offset="0.45" stop-color="#241306"/>
+    <stop offset="1" stop-color="#060403"/>
+  </radialGradient>
+  <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+    <stop offset="0" stop-color="#ffcf6b" stop-opacity="0.38"/>
+    <stop offset="0.5" stop-color="#e08a1e" stop-opacity="0.10"/>
+    <stop offset="1" stop-color="#e08a1e" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="ale" cx="45%" cy="35%" r="80%">
+    <stop offset="0" stop-color="#fff6d6"/>
+    <stop offset="0.45" stop-color="#f5bf4f"/>
+    <stop offset="1" stop-color="#b8661a"/>
+  </radialGradient>
+  <linearGradient id="table" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5b3518"/>
+    <stop offset="0.35" stop-color="#3a210d"/>
+    <stop offset="1" stop-color="#120a04"/>
+  </linearGradient>
+  <linearGradient id="pewter" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#1c1712"/>
+    <stop offset="0.7" stop-color="#3b322a"/>
+    <stop offset="1" stop-color="#8a6a3e"/>
+  </linearGradient>
+  <radialGradient id="coin" cx="40%" cy="35%" r="70%">
+    <stop offset="0" stop-color="#fff0b0"/>
+    <stop offset="0.5" stop-color="#e3a832"/>
+    <stop offset="1" stop-color="#8a5a12"/>
+  </radialGradient>
+  <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="2.2" result="b1"/>
+    <feGaussianBlur in="SourceGraphic" stdDeviation="0.6" result="b2"/>
+    <feMerge><feMergeNode in="b1"/><feMergeNode in="b1"/><feMergeNode in="b2"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="tglow" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <path id="d20" d="M80.644,87.982l16.592-41.483c0.054-0.128,0.088-0.26,0.108-0.394c0.006-0.039,0.007-0.077,0.011-0.116  c0.007-0.087,0.008-0.174,0.002-0.26c-0.003-0.046-0.007-0.091-0.014-0.137c-0.014-0.089-0.036-0.176-0.063-0.262  c-0.012-0.034-0.019-0.069-0.031-0.103c-0.047-0.118-0.106-0.229-0.178-0.335c-0.004-0.006-0.006-0.012-0.01-0.018L67.999,3.358  c-0.01-0.013-0.003-0.026-0.013-0.04L68,3.315V4c0,0-0.033,0-0.037,0c-0.403-1-1.094-1.124-1.752-0.976  c0,0.004-0.004-0.012-0.007-0.012C66.201,3.016,66.194,3,66.194,3H66.19h-0.003h-0.003h-0.004h-0.003c0,0-0.004,0-0.007,0  s-0.003-0.151-0.007-0.151L20.495,15.227c-0.025,0.007-0.046-0.019-0.071-0.011c-0.087,0.028-0.172,0.041-0.253,0.083  c-0.054,0.027-0.102,0.053-0.152,0.085c-0.051,0.033-0.101,0.061-0.147,0.099c-0.044,0.036-0.084,0.073-0.124,0.113  c-0.048,0.048-0.093,0.098-0.136,0.152c-0.03,0.039-0.059,0.076-0.085,0.117c-0.046,0.07-0.084,0.145-0.12,0.223  c-0.011,0.023-0.027,0.042-0.036,0.066L2.911,57.664C2.891,57.715,3,57.768,3,57.82v0.002c0,0.186,0,0.375,0,0.562  c0,0.004,0,0.004,0,0.008c0,0,0,0,0,0.002c0,0,0,0,0,0.004v0.004v0.002c0,0.074-0.002,0.15,0.012,0.223  C3.015,58.631,3,58.631,3,58.633c0,0.004,0,0.004,0,0.008c0,0,0,0,0,0.002c0,0,0,0,0,0.004v0.004c0,0,0,0,0,0.002v0.004  c0,0.191-0.046,0.377,0.06,0.545c0-0.002-0.03,0.004-0.03,0.004c0,0.004-0.03,0.004-0.03,0.004c0,0.002,0,0.002,0,0.002  l-0.045,0.004c0.03,0.047,0.036,0.09,0.068,0.133l29.049,37.359c0.002,0.004,0,0.006,0.002,0.01c0.002,0.002,0,0.004,0.002,0.008  c0.006,0.008,0.014,0.014,0.021,0.021c0.024,0.029,0.052,0.051,0.078,0.078c0.027,0.029,0.053,0.057,0.082,0.082  c0.03,0.027,0.055,0.062,0.086,0.088c0.026,0.02,0.057,0.033,0.084,0.053c0.04,0.027,0.081,0.053,0.123,0.076  c0.005,0.004,0.01,0.008,0.016,0.01c0.087,0.051,0.176,0.09,0.269,0.123c0.042,0.014,0.082,0.031,0.125,0.043  c0.021,0.006,0.041,0.018,0.062,0.021c0.123,0.027,0.249,0.043,0.375,0.043c0.099,0,0.202-0.012,0.304-0.027l45.669-8.303  c0.057-0.01,0.108-0.021,0.163-0.037C79.547,88.992,79.562,89,79.575,89c0.004,0,0.004,0,0.004,0c0.021,0,0.039-0.027,0.06-0.035  c0.041-0.014,0.08-0.034,0.12-0.052c0.021-0.01,0.044-0.019,0.064-0.03c0.017-0.01,0.026-0.015,0.033-0.017  c0.014-0.008,0.023-0.021,0.037-0.028c0.14-0.078,0.269-0.174,0.38-0.285c0.014-0.016,0.024-0.034,0.038-0.048  c0.109-0.119,0.201-0.252,0.271-0.398c0.006-0.01,0.016-0.018,0.021-0.029c0.004-0.008,0.008-0.017,0.011-0.026  c0.002-0.004,0.003-0.006,0.005-0.01C80.627,88.021,80.635,88.002,80.644,87.982z M77.611,84.461L48.805,66.453l32.407-25.202  L77.611,84.461z M46.817,63.709L35.863,23.542l43.818,14.608L46.817,63.709z M84.668,40.542l8.926,5.952l-11.902,29.75  L84.668,40.542z M89.128,39.446L84.53,36.38l-6.129-12.257L89.128,39.446z M79.876,34.645L37.807,20.622L65.854,6.599L79.876,34.645  z M33.268,19.107l-6.485-2.162l23.781-6.487L33.268,19.107z M21.92,18.895l8.67,2.891L10.357,47.798L21.92,18.895z M32.652,24.649  l10.845,39.757L7.351,57.178L32.652,24.649z M43.472,67.857L32.969,92.363L8.462,60.855L43.472,67.857z M46.631,69.09l27.826,17.393  l-38.263,6.959L46.631,69.09z"/>
+</defs>
+<rect width="1500" height="1500" fill="url(#bg)"/>
+<circle cx="750" cy="640" r="720" fill="url(#halo)"/>
+<path d="M 1190 70 L 1130 230 L 1185 225 L 1110 400 L 1150 395 L 1085 520" fill="none" stroke="#ffe6a8" stroke-width="5" stroke-linejoin="round" opacity="0.22" filter="url(#soft)"/>
+<path d="M 1130 230 L 1060 290" fill="none" stroke="#ffe6a8" stroke-width="3" opacity="0.14" filter="url(#soft)"/>
+<path d="M 0 900 L 1500 900 L 1500 1500 L 0 1500 Z" fill="url(#table)"/>
+<g stroke="#140a03" stroke-width="5" opacity="0.7">
+  <line x1="0" y1="985" x2="1500" y2="985"/>
+  <line x1="0" y1="1095" x2="1500" y2="1095"/>
+  <line x1="0" y1="1235" x2="1500" y2="1235"/>
+  <line x1="0" y1="1410" x2="1500" y2="1410"/>
+</g>
+<line x1="0" y1="900" x2="1500" y2="900" stroke="#f0a64a" stroke-width="4" opacity="0.6" filter="url(#soft)"/>
+<g transform="translate(1245 905)">
+  <path d="M 100 -250 C 190 -250 210 -120 110 -70" fill="none" stroke="#2a221b" stroke-width="30" stroke-linecap="round"/>
+  <path d="M 100 -250 C 190 -250 210 -120 110 -70" fill="none" stroke="#9a7444" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M -110 -300 L 110 -300 L 100 0 L -100 0 Z" fill="url(#pewter)"/>
+  <path d="M -125 -300 Q -130 -350 -80 -345 Q -60 -385 -10 -360 Q 30 -395 70 -355 Q 125 -365 125 -300 Z" fill="#f6e7c4" opacity="0.92"/>
+  <rect x="-112" y="-310" width="224" height="16" fill="#4a3b2e"/>
+  <rect x="-104" y="-40" width="208" height="12" fill="#4a3b2e"/>
+</g>
+<g filter="url(#soft)">
+  <ellipse cx="355" cy="975" rx="62" ry="20" fill="#5a3a0c"/>
+  <ellipse cx="355" cy="968" rx="62" ry="20" fill="url(#coin)"/>
+  <ellipse cx="355" cy="958" rx="62" ry="20" fill="url(#coin)"/>
+  <ellipse cx="350" cy="948" rx="62" ry="20" fill="url(#coin)"/>
+  <ellipse cx="470" cy="1015" rx="58" ry="19" fill="url(#coin)"/>
+  <ellipse cx="1000" cy="1040" rx="56" ry="18" fill="url(#coin)"/>
+  <ellipse cx="240" cy="1060" rx="54" ry="18" fill="url(#coin)" opacity="0.9"/>
+</g>
+<g transform="translate(680 575)">
+  <use href="#d20" transform="translate(-560 -60) rotate(-200) scale(4.6) translate(-50 -50)" fill="#f2b14a" opacity="0.05"/>
+  <use href="#d20" transform="translate(-450 -170) rotate(-160) scale(5.2) translate(-50 -50)" fill="#f2b14a" opacity="0.08"/>
+  <use href="#d20" transform="translate(-330 -210) rotate(-120) scale(5.8) translate(-50 -50)" fill="#f2b14a" opacity="0.12"/>
+  <use href="#d20" transform="translate(-210 -170) rotate(-80) scale(6.4) translate(-50 -50)" fill="#f2b14a" opacity="0.17"/>
+  <use href="#d20" transform="translate(-100 -80) rotate(-40) scale(7) translate(-50 -50)" fill="#f2b14a" opacity="0.24"/>
+  <use href="#d20" transform="scale(7.5) translate(-50 -50)" fill="url(#ale)" filter="url(#glow)"/>
+</g>
+<text x="750" y="1330" text-anchor="middle" font-family="Cinzel" font-weight="600" font-size="120" letter-spacing="22" fill="#ffd27a" filter="url(#tglow)">GROLLEN</text>
+</svg>
+</body>
+</html>

@@ -1,0 +1,260 @@
+# Grollen -DnDGen.RollGen Theme-
+
+[![Grollen album art](cover.png)](https://suno.com/s/RvnVPcPR4ZTGIEt7)
+
+The DnDGen.RollGen theme song: a tavern gambling and drinking song, where the dice roll like thunder across the table.
+Its lyrics come from the [DnDGen.RollGen README](https://github.com/DnDGen/DnDGen.RollGen/blob/main/README.md), sung in plain English,
+and its chorus brings back RollGen's leitmotif, *Grollen*, from the [DnDGen main theme](https://github.com/DnDGen/.github/blob/main/theme-song/README.md).
+
+**Listen on [Suno](https://suno.com/s/RvnVPcPR4ZTGIEt7).**
+
+## Updating
+
+This song follows the [DnDGen.RollGen README](https://github.com/DnDGen/DnDGen.RollGen/blob/main/README.md).
+Every pull request that changes the README gets a song check:
+
+1. If the change rewords or removes a phrase in the Sources table below, the song needs updating.
+   The tests catch this one: they fail and list every quoted phrase that is no longer in the README.
+2. Otherwise, if the change alters the README's high-level ideas or vibe, the song needs updating.
+3. Otherwise, it doesn't. Changes to the README's Theme Song badge or section never need a song update.
+
+When the song needs updating, it happens in the same pull request:
+
+1. The contributor updates the Lyrics and Sources here to match the new README.
+   Names are sung as words, never as code.
+2. The maintainer makes the new song in Suno:
+   - **Cover the current song**, so the theme stays recognizably the same song as it evolves.
+   - Use the Title, Style, and Lyrics from this page. **Leave the Style as it is**: only the lyrics change.
+   - **Turn Variety all the way down**, so Suno keeps to the Style instead of straying from it.
+   - Pick the take. The new take replaces the old one.
+   - **Publish it**, so anyone with the link can find and hear it.
+3. The maintainer updates the Suno link here and in the README, and adds anything learned to the Suno Notes.
+
+## Title
+
+```
+Grollen -DnDGen.RollGen Theme-
+```
+
+## Style
+
+```
+Fantasy tavern drinking song, a lilting Celtic folk singalong in a swaying 6/8, Lute, fiddle, tin whistle and harp over a soft bodhran, with dice rattling in a cup and clattering across wood as percussion, A poised, elegant mezzo-soprano bard singing the lead lightly and clearly: calm, sober and completely in control, with a knowing smile, effortless phrasing and crisp diction, never shouting, A wildly drunk tavern crowd hanging on her every word, cheering, laughing and bellowing every response back at her, A low rumble of distant thunder under the intro and every chorus, Verses quick and graceful, choruses warm and swaying, A hushed bridge where the bard calmly calls out the rules and the crowd roars them back, then a key change into a final chorus with the whole tavern on its feet, Intimate, warm, live-in-the-room production, Elegant, charming, and deadly serious about rolling dice
+```
+
+## Lyrics
+
+```
+[Intro - dice rattle in a cup and tumble across a wooden table, a low rumble of thunder, then the whole tavern stomps in]
+(Grollen! Grollen!)
+Roll the dice!
+(Roll the dice!)
+
+[Verse 1 - quick and patter-like, tankards on the downbeat]
+Rolls a set of dice
+As determined by the D20 die system
+Simply use the verbose, fluid syntax
+Two, three, four, six,
+Eight, ten, twelve, twenty,
+Even a hundred sides
+Will keep us rolling plenty!
+
+[Pre-Chorus]
+Now call it: true or false!
+True if high, false if low
+Roll the roiling thunder and you'll know
+(Now you know!)
+
+[Chorus - the whole tavern, call and response]
+Grollen! Grollen!
+(Roll the dice!)
+Thunder on the table
+(Roll the dice!)
+Add them up and drink them down
+Ten thousand dice in one roll!
+Grollen! Grollen!
+Roll again!
+
+[Post-Chorus - Spoken, the bard, dry and amused]
+Now look at that roll:
+Three-d-six, exclamation,
+T-One, K-Two...
+Whatever could it mean?
+
+[Verse 2]
+KEEP! Keep the highest two
+And let the lowest go
+TRANSFORM! If a one is rolled
+We will count it as a six
+EXPLODE! If a six is rolled
+Then roll and add again
+Exploding dice could roll forever
+(Forever!)
+
+First explode, then transform, then keep
+That's the order of operations
+
+[Pre-Chorus]
+Now call it: how far can it go?
+The lowest, the highest, the average throw
+Roll the roiling thunder and you'll know
+(Now you know!)
+
+[Chorus - the whole tavern, call and response]
+Grollen! Grollen!
+(Roll the dice!)
+Thunder on the table
+(Roll the dice!)
+Add them up and drink them down
+Ten thousand dice in one roll!
+Grollen! Grollen!
+Roll again!
+
+[Verse 3 - faster, the gamblers lean in]
+Give me a range and I'll give you a roll
+Every whole number, and nothing outside it
+With the fewest dice
+Or the most evenly spread
+Add a number, or another roll
+Subtract it, multiply, divide
+Take the remainder after dividing
+A roll being built, and the calls all chain
+
+[Bridge - hushed, the bard calls and the crowd shouts back]
+Is the roll valid?
+Quantity is too low!
+(Too low!)
+Decimals are not allowed for dice operations!
+(Not allowed!)
+It explodes on all values!
+(All values!)
+This is not a roll!
+(Not a roll!)
+Ten thousand dice with ten thousand sides,
+(Ten thousand!)
+But one more die, or one more side,
+And now it's too high!
+
+[Verse 4 - building back up]
+This contains a roll for rolling stats
+Fireball does damage, roll it out
+Ghouls and zombies, strict or lenient
+Was it bad, or was it good?
+Somewhere between the lowest and the highest
+Seventeen and later need .NET ten
+Use sixteen if you're still on .NET eight
+
+[Pre-Chorus - the bard calls it out, building to the key change]
+Now call it: chain them in a row!
+Chain the dice, left to right they go
+Roll the roiling thunder and you'll know
+(Now you know!)
+
+[Final Chorus - key change, everyone standing on the tables]
+Grollen! Grollen!
+(Roll the dice!)
+Thunder on the table
+(Roll the dice!)
+Add them up and drink them down
+Ten thousand dice in one roll!
+Through Ninject, or from the factory
+If you are not using Ninject
+Grollen! Grollen!
+Roll again!
+
+[Outro - the band drops out, a drunk patron slurs over one rattling cup, and the bard corrects them, crisp and amused]
+One ghoul an' three zombies...
+(That's lenient!)
+One ghoul and five zombies!
+(That's strict!)
+(Grollen... Grollen...)
+Roll the dice...
+Roll again...
+[A last die tumbles and settles, and the thunder rolls away]
+```
+
+## Sources
+
+| Lyric | From the README |
+|---|---|
+| Roll the dice! | Introduction: "Rolls a set of dice" |
+| Rolls a set of dice<br>As determined by the D20 die system | Introduction: "Rolls a set of dice, as determined by the D20 die system." |
+| Simply use the verbose, fluid syntax | Use: "To use RollGen, simply use the verbose, fluid syntax" |
+| Two, three, four, six,<br>Eight, ten, twelve, twenty, | Reference: "Rolls the quantity so far on that die." |
+| Even a hundred sides<br>Will keep us rolling plenty! | Reference: "Rolls the quantity so far on a d100." |
+| Now call it: true or false!<br>True if high, false if low | Use: "Returns true if high (51-100), false if low (1-50)" |
+| Roll the roiling thunder and you'll know | Not from the README: the leitmotif's thunder |
+| Grollen! Grollen! | Not from the README: RollGen's leitmotif from the DnDGen main theme, German for a rumble, or roll, of thunder |
+| Thunder on the table | Not from the README: the leitmotif's thunder, rolling across the tavern table |
+| Add them up and drink them down | Reference: "Rolls, and returns the total" |
+| Ten thousand dice in one roll! | Reference: "10,000, the most dice in one roll" |
+| Roll again! | Reference: "rolls it again, and counts both" |
+| Now look at that roll:<br>Three-d-six, exclamation,<br>T-One, K-Two...<br>Whatever could it mean? | Use: "3d6!t1k2" |
+| KEEP! Keep the highest two<br>And let the lowest go | Use: "Returns the sum of 2 highest rolls, including bonus rolls from explosion and transforming 1's to 6's" and Reference: "Keeps only the highest rolls, this many of them." |
+| TRANSFORM! If a one is rolled<br>We will count it as a six | Use: "If a 1 is rolled, we will count it as a 6." |
+| EXPLODE! If a six is rolled<br>Then roll and add again | Use: "If a 6 is rolled, then an additional roll is performed." and Reference: "rolls it again, and counts both" |
+| Exploding dice could roll forever | Reference: "Exploding dice could roll forever" |
+| First explode, then transform, then keep<br>That's the order of operations | Order of Operations: "this is the order of operations:" and "1. Explode 2. Transform 3. Keep" |
+| Now call it: how far can it go?<br>The lowest, the highest, the average throw | Reference: "The lowest possible result", "The highest possible result", and "The average result." |
+| Give me a range and I'll give you a roll<br>Every whole number, and nothing outside it | Reference: "Builds roll expressions that produce every whole number in a range, and nothing outside it." |
+| With the fewest dice | Reference: "The roll with the fewest dice" |
+| Or the most evenly spread | Reference: "The roll whose results are most evenly spread" |
+| Add a number, or another roll | Reference: "Adds an expression, a number, or another roll." |
+| Subtract it, multiply, divide | Reference: "Subtracts an expression", "Multiplies by an expression", and "Divides by an expression" |
+| Take the remainder after dividing | Reference: "Takes the remainder after dividing" |
+| A roll being built, and the calls all chain | Reference: "A roll being built." and "so calls chain" |
+| Is the roll valid? | Use: "Returns whether the roll is valid" |
+| Quantity is too low! | Use: "because quantity is too low" |
+| Decimals are not allowed for dice operations! | Use: "because decimals are not allowed for dice operations" |
+| It explodes on all values! | Use: "because it explodes on all values" |
+| This is not a roll! | Use: "this is not a roll" |
+| Ten thousand dice with ten thousand sides,<br>But one more die, or one more side,<br>And now it's too high! | Reference: "10,000, the most dice in one roll" and "10,000, the most sides on one die", and Use: "because quantity is too high" and "because die is too high" |
+| This contains a roll for rolling stats | Use: "This contains a roll of 4d6k3 for rolling stats" |
+| Fireball does damage, roll it out | Use: "Fireball does" |
+| Ghouls and zombies, strict or lenient | Notes: "ghouls and 2d4 zombies" |
+| Was it bad, or was it good?<br>Somewhere between the lowest and the highest | Reference: "Describes `roll` by where it falls between the lowest and highest possible results" and "it chooses between `Bad` and `Good`" |
+| Seventeen and later need .NET ten<br>Use sixteen if you're still on .NET eight | Installing: "Version 17 and later require .NET 10. Use version 16.x if you are still on .NET 8." |
+| Now call it: chain them in a row!<br>Chain the dice, left to right they go | Use: "chainedRolls" and "Evaluated left to right" |
+| Through Ninject, or from the factory<br>If you are not using Ninject | Getting `Dice` Objects: "Get an instance through Ninject" and "through `DiceFactory` if you are not using Ninject" |
+| One ghoul an' three zombies...<br>One ghoul and five zombies! | Notes: "1 ghouls an3 zombies" and "1 ghouls and 5 zombies" |
+| Roll the dice...<br>Roll again... | Introduction: "Rolls a set of dice" and Reference: "rolls it again, and counts both" |
+
+## Suno Notes
+
+Lessons from generating this song, for the next update:
+
+- **Drafts and the Sample.** Every draft before this song first merged was a fresh generation,
+  Sampling the main theme's "Rogante Marendor" snippet (3:00.0 to 3:17.1) with Variety all the way
+  down, per the main theme's
+  [New Theme Songs](https://github.com/DnDGen/.github/blob/main/theme-song/README.md#new-theme-songs).
+  This take is v1; every update from here Covers it.
+- **Name the singer you want.** The first drafts asked for "a warm, raspy, grinning baritone
+  lead, like an innkeeper", in a "rowdy" song that was "a little drunk", and came out growly
+  and gravelly. A clear, theatrical tenor bard, "tipsy yet nails every note", was better but still
+  shouty: "soaring", "showstopper", and "over-the-top" all ask for volume. What worked was a
+  sober, elegant mezzo-soprano bard who is "never shouting", with all the shouting given to a
+  drunk crowd that loves every word, even though she is singing a README.
+- **The thunder arrived with her.** Every Style asked for distant thunder, but only the drafts with
+  the female lead actually played it.
+- **The bard shreds.** Nothing asked for a solo, but she plays lute (or something like a ukulele)
+  like nobody's business. Keep the Style as it is so a Cover keeps her.
+- **No code in the lyrics**, as DnDGen.Stress learned, except the spoken Post-Chorus, which reads
+  the README's exploding, transforming, kept roll aloud so that Verse 2 can decode it. If a Cover
+  mangles it, say it in words instead.
+
+## Album Art
+
+[cover.png](cover.png) is rendered from [cover.html](cover.html), which you can open in any browser.
+To render it again at 1500 × 1500, from this folder:
+
+```
+msedge --headless --hide-scrollbars --allow-file-access-from-files --window-size=1500,1500 --screenshot=cover.png cover.html
+```
+
+If Edge reads `cover.html` as a web address, pass it as a full `file:///` URL instead.
+
+- It is the main theme's [cover](https://github.com/DnDGen/.github/blob/main/theme-song/cover.html), recoloured for the tavern.
+  The d20 tumbles across a tavern table among coins and a tankard, and the ghost copies behind it are its roll:
+  the rumble of thunder that RollGen's leitmotif, *Grollen*, is named for.
+- The d20 is the dndgen.com loading spinner, from [DnDGen.Web](https://github.com/DnDGen/DnDGen.Web/blob/main/dndgen-web/src/assets/loadingDice.svg), originally from [a gist by hperantunes](https://gist.github.com/hperantunes/f4c2fd407c2ea74c6c9d).
+- The title is set in [Cinzel](https://github.com/NDISCOVER/Cinzel), included as [Cinzel.ttf](Cinzel.ttf) under the [SIL Open Font License](Cinzel-OFL.txt).

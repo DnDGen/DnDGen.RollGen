@@ -2,7 +2,7 @@
 
 Rolls a set of dice, as determined by the D20 die system.
 
-[![Build Status](https://dev.azure.com/dndgen/DnDGen/_apis/build/status%2FDnDGen.RollGen%20-%20Build?branchName=main)](https://dev.azure.com/dndgen/DnDGen/_build/latest?definitionId=13&branchName=main)
+[![Build Status](https://dev.azure.com/dndgen/DnDGen/_apis/build/status%2FDnDGen.RollGen%20-%20Build?branchName=main)](https://dev.azure.com/dndgen/DnDGen/_build/latest?definitionId=13&branchName=main) [![Theme Song](https://img.shields.io/badge/theme_song-Suno-ff69b4)](https://suno.com/s/RvnVPcPR4ZTGIEt7)
 
 ## Installing
 
@@ -12,7 +12,7 @@ The project is on [NuGet](https://www.nuget.org/packages/DnDGen.RollGen).
 dotnet add package DnDGen.RollGen
 ```
 
-Version 17 requires .NET 10. Use version 16.x if you are still on .NET 8.
+Version 17 and later require .NET 10. Use version 16.x if you are still on .NET 8.
 
 ## Syntax
 
@@ -203,3 +203,96 @@ public int Roll()
 }
 ```
 
+
+## Reference
+
+Every public type is in the `DnDGen.RollGen` namespace, except `DiceFactory` and `RollGenModuleLoader`, which are in `DnDGen.RollGen.IoC`.
+
+### `Dice`
+
+Starts rolls, and finds and replaces rolls in text.
+
+| Method | What it does |
+| --- | --- |
+| `Roll(int quantity = 1)` | Starts a roll of `quantity` dice. Follow it with a die, such as `d6()`. |
+| `Roll(string rollExpression)` | Starts a roll from an expression, such as `"4d6k3+2"`. |
+| `Roll(PartialRoll roll)` | Starts a roll whose quantity is another roll. |
+| `ReplaceWrappedExpressions<T>(string str, string openexpr = "{", string closeexpr = "}", char? openexprescape = '\\')` | Rolls every expression in `str` that is wrapped in `openexpr` and `closeexpr`, and replaces it with its total as a `T`, or with `True` or `False` when `T` is `bool`. An `openexpr` straight after `openexprescape` is left alone, and the escape removed. A `null` escape means nothing is escaped. |
+| `ReplaceExpressionWithTotal(string expression, bool lenient = false)` | Replaces every roll in `expression` with its total, then any arithmetic left, such as `2+3`, with its value. |
+| `ReplaceRollsWithSumExpression(string expression, bool lenient = false)` | Replaces every roll in `expression` with its individual rolls as a sum, such as `(5 + 3 + 2)`, or a single number for a single die. |
+| `ContainsRoll(string expression, bool lenient = false)` | Whether `expression` contains a roll. |
+| `Describe(string rollExpression, int roll, params string[] descriptions)` | Describes `roll` by where it falls between the lowest and highest possible results of `rollExpression`, choosing from `descriptions`, worst first. With no `descriptions`, it chooses between `Bad` and `Good`. |
+| `IsValid(string rollExpression)` | Whether RollGen can roll `rollExpression`, within the `Limits`. |
+
+With `lenient`, a roll can run into the word before it; see note 3 above.
+
+### `PartialRoll`
+
+A roll being built. Every method that returns a `PartialRoll` adds to the roll and returns the same roll, so calls chain. The `As` methods roll it, or work out what it could roll, and throw an `InvalidOperationException` if it isn't valid.
+
+| Property | What it is |
+| --- | --- |
+| `CurrentRollExpression` | The roll expression built so far. |
+
+| Method | What it does |
+| --- | --- |
+| `d(int die)`, `d(string die)`, `d(PartialRoll roll)` | Rolls the quantity so far on dice with this many sides. |
+| `d2()`, `d3()`, `d4()`, `d6()`, `d8()`, `d10()`, `d12()`, `d20()` | Rolls the quantity so far on that die. |
+| `Percentile()` | Rolls the quantity so far on a d100. |
+| `Keeping(int amountToKeep)`, `Keeping(string amountToKeep)`, `Keeping(PartialRoll roll)` | Keeps only the highest rolls, this many of them. |
+| `Explode()` | Whenever a die rolls its highest value, rolls it again, and counts both. |
+| `ExplodeOn(int rollToExplode)`, `ExplodeOn(string rollToExplode)`, `ExplodeOn(PartialRoll roll)` | Explodes on this roll as well. |
+| `Transforming(int rollToTransform, int? transformTarget = null)`, `Transforming(string rollToTransform, string transformTarget = null)`, `Transforming(PartialRoll roll, PartialRoll transformTarget = null)` | Counts this roll as `transformTarget` instead, or as the die's highest value when `transformTarget` is `null`. |
+| `Plus(string expression)`, `Plus(double value)`, `Plus(PartialRoll roll)` | Adds an expression, a number, or another roll. |
+| `Minus(string expression)`, `Minus(double value)`, `Minus(PartialRoll roll)` | Subtracts an expression, a number, or another roll. |
+| `Times(string expression)`, `Times(double value)`, `Times(PartialRoll roll)` | Multiplies by an expression, a number, or another roll. |
+| `DividedBy(string expression)`, `DividedBy(double value)`, `DividedBy(PartialRoll roll)` | Divides by an expression, a number, or another roll. |
+| `Modulos(string expression)`, `Modulos(double value)`, `Modulos(PartialRoll roll)` | Takes the remainder after dividing by an expression, a number, or another roll. |
+| `AsSum()`, `AsSum<T>()` | Rolls, and returns the total, as an `int` or a `T`. |
+| `AsIndividualRolls()`, `AsIndividualRolls<T>()` | Rolls, and returns each die's roll, as `int`s or `T`s. For an expression that isn't a single roll, it returns only the total; see note 1 above. |
+| `AsPotentialAverage()` | The average result. |
+| `AsPotentialMinimum()`, `AsPotentialMinimum<T>()` | The lowest possible result, as an `int` or a `T`. |
+| `AsPotentialMaximum(bool includeExplode = true)`, `AsPotentialMaximum<T>(bool includeExplode = true)` | The highest possible result, as an `int` or a `T`. Exploding dice could roll forever, so with `includeExplode` an exploding roll's highest result is taken as 10 times what it would be without exploding. |
+| `AsTrueOrFalse(double threshold = 0.5)` | Rolls, and returns `true` if the result is above `threshold` of the way from the lowest possible result to the highest. A boolean expression, such as `2d6 >= 1d12`, is evaluated instead. |
+| `AsTrueOrFalse(int threshold)` | Rolls, and returns `true` if the result is at least `threshold`. Throws an `InvalidOperationException` for a boolean expression. |
+| `IsValid()` | Whether RollGen can roll this, within the `Limits`. |
+
+### `RollHelper`
+
+Builds roll expressions that produce every whole number in a range, and nothing outside it. A range of one number gives that number. When `lower` is above `upper`, `GetRollWithFewestDice`, and `GetRollWithMostEvenDistribution` with its default options, throw an `ArgumentException`.
+
+| Method | What it does |
+| --- | --- |
+| `GetRollWithFewestDice(int lower, int upper)` | The roll with the fewest dice, such as `4d3-3` for 1 to 9. |
+| `GetRollWithFewestDice(int baseQuantity, int lower, int upper)` | The same, for the range with `baseQuantity` taken off both ends. |
+| `GetRollWithMostEvenDistribution(int lower, int upper, bool allowMultipliers = false, bool allowNonstandardDice = false)` | The roll whose results are most evenly spread, such as `1d8+1d2-1` for 1 to 9. `allowMultipliers` lets it multiply dice, such as `(1d12-1)*3+1d3`, and `allowNonstandardDice` lets it use any die, such as `1d36`. |
+| `GetRollWithMostEvenDistribution(int baseQuantity, int lower, int upper, bool allowMultipliers = false, bool allowNonstandardDice = false)` | The same, for the range with `baseQuantity` taken off both ends. |
+
+### `Limits`
+
+| Property | What it is |
+| --- | --- |
+| `Quantity` | 10,000, the most dice in one roll, and the most dice it can keep. |
+| `Die` | 10,000, the most sides on one die, and the highest roll it can transform. |
+
+### `DiceFactory`
+
+| Method | What it does |
+| --- | --- |
+| `Create()` | Returns a `Dice`, for when you aren't using Ninject. RollGen loads itself into a kernel of its own the first time. |
+
+### `RollGenModuleLoader`
+
+| Constructor | What it does |
+| --- | --- |
+| `RollGenModuleLoader()` | Creates a module loader. |
+
+| Method | What it does |
+| --- | --- |
+| `LoadModules(IKernel kernel)` | Loads RollGen into your Ninject `kernel`, so it can build `Dice`. Loading it again does nothing. |
+
+## Theme Song
+
+DnDGen.RollGen has its own theme song: [Grollen -DnDGen.RollGen Theme-](https://suno.com/s/RvnVPcPR4ZTGIEt7), a tavern gambling and drinking song.
+It follows this README, so a change here may need the song updated too.
+See the song's [lyrics, notes, and update procedure](https://github.com/DnDGen/DnDGen.RollGen/blob/main/docs/theme-song/README.md).

@@ -1,0 +1,22 @@
+diff --git a/profile/README.md b/profile/README.md
+index 735efcd..48d8c59 100644
+--- a/profile/README.md
++++ b/profile/README.md
+@@ -33,3 +33,4 @@ So DnDGen tests heavily: over 100,000 tests, plus stress tests that run each gen
+ |---|---|---|---|
+ | <a href="https://github.com/DnDGen/.github/blob/main/theme-song/README.md"><img src="https://github.com/DnDGen/.github/raw/main/theme-song/cover.png" alt="Rogante Marendor album art" width="80"></a> | **Rogante Marendor** -DnDGen Main Theme- | *Rogante Marendor* | [Listen](https://suno.com/s/bv8TJG5bYGeL21dp) · [Lyrics and notes](https://github.com/DnDGen/.github/blob/main/theme-song/README.md) |
+ | <a href="https://github.com/DnDGen/DnDGen.Stress/blob/main/docs/theme-song/README.md"><img src="https://github.com/DnDGen/DnDGen.Stress/raw/main/docs/theme-song/cover.png" alt="Over and Over album art" width="80"></a> | **Over and Over** -DnDGen.Stress Theme- | | [Listen](https://suno.com/s/TLKVK477Efrel4u8) · [Lyrics and notes](https://github.com/DnDGen/DnDGen.Stress/blob/main/docs/theme-song/README.md) |
++| <a href="https://github.com/DnDGen/DnDGen.RollGen/blob/main/docs/theme-song/README.md"><img src="https://github.com/DnDGen/DnDGen.RollGen/raw/main/docs/theme-song/cover.png" alt="Grollen album art" width="80"></a> | **Grollen** -DnDGen.RollGen Theme- | *Grollen* | [Listen](https://suno.com/s/RvnVPcPR4ZTGIEt7) · [Lyrics and notes](https://github.com/DnDGen/DnDGen.RollGen/blob/main/docs/theme-song/README.md) |
+diff --git a/theme-song/README.md b/theme-song/README.md
+index 61faad2..7cd2c46 100644
+--- a/theme-song/README.md
++++ b/theme-song/README.md
+@@ -134,7 +134,7 @@ These genres are proposals until each song is written; a written song's row link
+ | Repository | Genre | Area |
+ |---|---|---|
+ | [Stress](https://github.com/DnDGen/DnDGen.Stress) | Forge folk metal: [listen](https://suno.com/s/TLKVK477Efrel4u8) · [lyrics and notes](https://github.com/DnDGen/DnDGen.Stress/blob/main/docs/theme-song/README.md) | The forge, proving steel by striking it over and over |
+-| [RollGen](https://github.com/DnDGen/DnDGen.RollGen) | Tavern gambling and drinking song | The tavern |
++| [RollGen](https://github.com/DnDGen/DnDGen.RollGen) | Tavern gambling and drinking song: [listen](https://suno.com/s/RvnVPcPR4ZTGIEt7) · [lyrics and notes](https://github.com/DnDGen/DnDGen.RollGen/blob/main/docs/theme-song/README.md) | The tavern |
+ | [TreasureGen](https://github.com/DnDGen/DnDGen.TreasureGen) | Pirate shanty | The treasure hunt |
+ | [DungeonGen](https://github.com/DnDGen/DnDGen.DungeonGen) | Dungeon synth | The dungeon crawl |
+ | [EncounterGen](https://github.com/DnDGen/DnDGen.EncounterGen) | Epic battle theme | Combat |
