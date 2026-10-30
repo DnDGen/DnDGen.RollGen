@@ -296,3 +296,9 @@ Builds roll expressions that produce every whole number in a range, and nothing 
 | Method | What it does |
 | --- | --- |
 | `LoadModules(IKernel kernel)` | Loads RollGen into your Ninject `kernel`, so it can build `Dice`. Loading it again does nothing. |
+
+## Theme Song
+
+DnDGen.RollGen has its own theme song: *Grollen -DnDGen.RollGen Theme-*, a tavern gambling and drinking song.
+It follows this README, so a change here may need the song updated too.
+See the song's [lyrics, notes, and update procedure](https://github.com/DnDGen/DnDGen.RollGen/blob/main/docs/theme-song/README.md).
