@@ -39,7 +39,7 @@ Grollen -DnDGen.RollGen Theme-
 ## Style
 
 ```
-Fantasy tavern drinking song, a bright, bouncy Celtic folk singalong in a swaying 6/8, Lute, fiddle, tin whistle and accordion over bodhran and hand claps, Tankards thumping the table, with dice rattling in a cup and clattering across wood as percussion, A clear, soaring, theatrical tenor lead: a charming bard who is gloriously tipsy yet nails every note, playful and showy, with a cheeky grin, crisp diction and dazzling vocal runs, A cheering tavern crowd singing along on the choruses, with call-and-response shouts and laughter, A low rumble of distant thunder under the intro and every chorus, Verses quick and patter-like, like a musical-theatre showstopper, choruses huge and swaying, A hushed bridge where the bard calls out the rules and the crowd shouts them back, then a key change into a final chorus with the bard standing on the table, Lively, warm, live-in-the-room production, Joyful, over-the-top, and deadly serious about rolling dice
+Fantasy tavern drinking song, a lilting Celtic folk singalong in a swaying 6/8, Lute, fiddle, tin whistle and harp over a soft bodhran, with dice rattling in a cup and clattering across wood as percussion, A poised, elegant mezzo-soprano bard singing the lead lightly and clearly: calm, sober and completely in control, with a knowing smile, effortless phrasing and crisp diction, never shouting, A wildly drunk tavern crowd hanging on her every word, cheering, laughing and bellowing every response back at her, A low rumble of distant thunder under the intro and every chorus, Verses quick and graceful, choruses warm and swaying, A hushed bridge where the bard calmly calls out the rules and the crowd roars them back, then a key change into a final chorus with the whole tavern on its feet, Intimate, warm, live-in-the-room production, Elegant, charming, and deadly serious about rolling dice
 ```
 
 ## Lyrics
@@ -75,7 +75,7 @@ Ten thousand dice in one roll!
 Grollen! Grollen!
 Roll again!
 
-[Post-Chorus - Spoken, the bard with a theatrical flourish]
+[Post-Chorus - Spoken, the bard, dry and amused]
 Now look at that roll:
 Three-d-six, exclamation,
 T-One, K-Two...
@@ -162,7 +162,7 @@ If you are not using Ninject
 Grollen! Grollen!
 Roll again!
 
-[Outro - the band drops out, the bard, finally slurring, over one rattling cup]
+[Outro - the band drops out, a drunk patron slurs over one rattling cup, and the bard corrects them, crisp and amused]
 One ghoul an' three zombies...
 (That's lenient!)
 One ghoul and five zombies!
@@ -233,9 +233,10 @@ Nothing generated yet. For the first drafts (v0.1, v0.2, and so on), per the mai
   Verse 2 can decode it. If a draft mangles it, say it in words instead.
 - **Name the singer you want.** The first two drafts asked for "a warm, raspy, grinning baritone
   lead, like an innkeeper", in a "rowdy" song that was "a little drunk", and both came out growly
-  and gravelly. The Style now asks for a clear, theatrical tenor bard who is tipsy yet nails every
-  note: the bard who saw the rogue playing dice in the corner, had far too many drinks, and rolled
-  a natural 20 on Perform.
+  and gravelly. A clear, theatrical tenor bard, "tipsy yet nails every note", was better but still
+  shouty: "soaring", "showstopper", and "over-the-top" all ask for volume. The Style now asks for
+  a sober, elegant mezzo-soprano bard who is "never shouting", and gives all the shouting to a
+  drunk crowd that loves every word, even though she is singing a README.
 
 ## Album Art
 
