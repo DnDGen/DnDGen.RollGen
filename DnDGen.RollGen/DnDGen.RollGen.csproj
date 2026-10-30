@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>17.0.0</Version>
+    <Version>18.0.0</Version>
     <TargetFrameworks>net10.0</TargetFrameworks>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
@@ -13,7 +13,7 @@
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Breaking: now targets .NET 10 (was .NET 8). Plain numbers skip the expression engine, and .5, 5., exponents (1e5), NaN and Infinity are now read as numbers. Added README to the package.</PackageReleaseNotes>
+    <PackageReleaseNotes>Breaking: Utils is now internal. The README documents every public member, and links to the RollGen theme song.</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <None Include="18531-twenty-sided-dice-vector-thumb.png">
