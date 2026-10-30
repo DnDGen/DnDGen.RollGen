@@ -12,7 +12,7 @@ The project is on [NuGet](https://www.nuget.org/packages/DnDGen.RollGen).
 dotnet add package DnDGen.RollGen
 ```
 
-Version 17 requires .NET 10. Use version 16.x if you are still on .NET 8.
+Version 17 and later require .NET 10. Use version 16.x if you are still on .NET 8.
 
 ## Syntax
 
@@ -274,12 +274,6 @@ Builds roll expressions that produce every whole number in a range, and nothing 
 | --- | --- |
 | `Quantity` | 10,000, the most dice in one roll, and the most dice it can keep. |
 | `Die` | 10,000, the most sides on one die, and the highest roll it can transform. |
-
-### `Utils`
-
-| Method | What it does |
-| --- | --- |
-| `ChangeType<T>(object rawEvaluatedExpression)` | Converts an evaluated expression to a `T`, the way RollGen does: as it is if it is already a `T`, or with `Convert.ChangeType` otherwise. |
 
 ### `DiceFactory`
 

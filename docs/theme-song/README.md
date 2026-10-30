@@ -130,7 +130,7 @@ Fireball does damage, roll it out
 Ghouls and zombies, strict or lenient
 Was it bad, or was it good?
 Somewhere between the lowest and the highest
-Version seventeen needs .NET ten
+Seventeen and later need .NET ten
 Use sixteen if you're still on .NET eight
 
 [Final Chorus - key change, everyone standing on the tables]
@@ -191,7 +191,7 @@ The highest possible result
 | Fireball does damage, roll it out | Use: "Fireball does" |
 | Ghouls and zombies, strict or lenient | Notes: "ghouls and 2d4 zombies" |
 | Was it bad, or was it good?<br>Somewhere between the lowest and the highest | Reference: "Describes `roll` by where it falls between the lowest and highest possible results" and "it chooses between `Bad` and `Good`" |
-| Version seventeen needs .NET ten<br>Use sixteen if you're still on .NET eight | Installing: "Version 17 requires .NET 10. Use version 16.x if you are still on .NET 8." |
+| Seventeen and later need .NET ten<br>Use sixteen if you're still on .NET eight | Installing: "Version 17 and later require .NET 10. Use version 16.x if you are still on .NET 8." |
 | Through Ninject, or from the factory<br>If you are not using Ninject | Getting `Dice` Objects: "Get an instance through Ninject" and "through `DiceFactory` if you are not using Ninject" |
 | The average<br>The lowest possible result<br>The highest possible result | Reference: "The average result.", "The lowest possible result", and "The highest possible result" |
 

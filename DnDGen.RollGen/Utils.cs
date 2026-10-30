@@ -2,7 +2,7 @@
 
 namespace DnDGen.RollGen
 {
-    public static class Utils
+    internal static class Utils
     {
         public static T ChangeType<T>(object rawEvaluatedExpression)
         {
