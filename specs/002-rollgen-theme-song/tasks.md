@@ -39,9 +39,9 @@ changes that make them pass (II).
 ## Phase 3: The Song
 
 - [X] T006 [US3] Draft the Title, Style, and Lyrics from the README, and their Sources
-- [ ] T007 (maintainer) Review the draft lyrics and style before anything is generated
+- [X] T007 (maintainer) Review the draft lyrics and style before anything is generated
 - [X] T008 [US3] Draw the album art, recoloured from the main theme's cover, and render it
-- [ ] T009 (maintainer) Approve the album art
+- [X] T009 (maintainer) Approve the album art
 - [ ] T010 (maintainer) Generate drafts in Suno, each Sampling the main theme's "Rogante
   Marendor" snippet (3:00.0 to 3:17.1) with Variety all the way down; pick and publish the take
 - [ ] T011 (maintainer) Add the Suno link to the record (the cover and Listen on Suno) and the
