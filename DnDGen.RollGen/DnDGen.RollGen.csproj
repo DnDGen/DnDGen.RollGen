@@ -11,12 +11,14 @@
     <RepositoryUrl>https://github.com/DnDGen/DnDGen.RollGen</RepositoryUrl>
     <PackageTags>dice dungeons dragons d20 dnd adnd ioc ninject dependency inject injection roll random</PackageTags>
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
+    <PackageIcon>avatar-128.png</PackageIcon>
+    <PackageIconUrl />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>Breaking: Utils is now internal. The README documents every public member, and links to the RollGen theme song.</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="18531-twenty-sided-dice-vector-thumb.png">
+    <None Include="avatar-128.png">
       <Pack>True</Pack>
       <PackagePath>
       </PackagePath>
