@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>18.0.0</Version>
+    <Version>18.0.1</Version>
     <TargetFrameworks>net10.0</TargetFrameworks>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
@@ -10,13 +10,13 @@
     <PackageProjectUrl>https://github.com/DnDGen/DnDGen.RollGen</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DnDGen/DnDGen.RollGen</RepositoryUrl>
     <PackageTags>dice dungeons dragons d20 dnd adnd ioc ninject dependency inject injection roll random</PackageTags>
-    <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
+    <PackageIcon>avatar-128.png</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Breaking: Utils is now internal. The README documents every public member, and links to the RollGen theme song.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated package icon</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="18531-twenty-sided-dice-vector-thumb.png">
+    <None Include="avatar-128.png">
       <Pack>True</Pack>
       <PackagePath>
       </PackagePath>
