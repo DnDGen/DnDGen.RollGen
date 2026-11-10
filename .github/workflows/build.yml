@@ -73,9 +73,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           LATEST: ${{ steps.version.outputs.latest }}
         run: |
-          $report = Get-ChildItem -Path TestResults -Recurse -Filter *.cobertura.xml | Select-Object -First 1
-          if (-not $report) { throw 'The test run produced no coverage report.' }
-          Copy-Item -Path $report.FullName -Destination coverage.cobertura.xml
+          $reports = @(Get-ChildItem -Path TestResults -Recurse -Filter *.cobertura.xml)
+          if (-not $reports) { throw 'The test run produced no coverage report.' }
+          # Each test project writes its own report; the union of them is the library's coverage.
+          dotnet tool install --global dotnet-coverage
+          if ($LASTEXITCODE -ne 0) { throw 'Could not install dotnet-coverage.' }
+          dotnet-coverage merge @($reports.FullName) --output coverage.cobertura.xml --output-format cobertura
+          if ($LASTEXITCODE -ne 0) { throw 'Could not merge the coverage reports.' }
           gh release download $env:LATEST --pattern coverage.cobertura.xml --dir baseline
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Release $env:LATEST has no coverage report to download."

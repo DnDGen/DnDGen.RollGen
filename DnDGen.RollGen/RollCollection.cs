@@ -6,7 +6,7 @@ namespace DnDGen.RollGen
 {
     internal class RollCollection
     {
-        public static int[] StandardDice = new[] { 2, 3, 4, 6, 8, 10, 12, 20, 100 };
+        public static int[] StandardDice = [2, 3, 4, 6, 8, 10, 12, 20, 100];
 
         public List<RollPrototype> Rolls { get; private set; }
         public int Adjustment { get; set; }
@@ -15,19 +15,19 @@ namespace DnDGen.RollGen
         public IEnumerable<RollPrototype> UnmultipliedRolls => Rolls.Where(r => r.Multiplier == 1);
         public int Quantities => UnmultipliedRolls.Sum(r => r.Quantity);
         public int Lower => Quantities + Adjustment;
-        public int Upper => (int)longSum + Adjustment;
+        public int Upper => (int)LongSum + Adjustment;
 
-        private long longSum => MultipliedRolls.Sum(r => r.Quantity * (r.Die - 1) * (long)r.Multiplier)
+        private long LongSum => MultipliedRolls.Sum(r => r.Quantity * (r.Die - 1) * (long)r.Multiplier)
             + UnmultipliedRolls.Sum(r => r.Quantity * (long)r.Die);
 
         public RollCollection()
         {
-            Rolls = new List<RollPrototype>();
+            Rolls = [];
         }
 
         public string Build()
         {
-            if (!Rolls.Any())
+            if (Rolls.Count == 0)
                 return Adjustment.ToString();
 
             var rolls = Rolls
@@ -50,7 +50,6 @@ namespace DnDGen.RollGen
             return lower == Lower
                 && upper == Upper
                 && Lower <= Upper
-                //&& longSum < int.MaxValue
                 && !Rolls.Any(r => !r.IsValid);
         }
 
@@ -61,7 +60,7 @@ namespace DnDGen.RollGen
 
         public override bool Equals(object obj)
         {
-            if (!(obj is RollCollection))
+            if (obj is not RollCollection)
                 return false;
 
             var collection = obj as RollCollection;

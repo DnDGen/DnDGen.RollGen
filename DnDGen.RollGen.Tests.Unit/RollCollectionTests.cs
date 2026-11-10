@@ -822,6 +822,68 @@ namespace DnDGen.RollGen.Tests.Unit
         }
 
         [Test]
+        public void Matches_MultipliedRoll()
+        {
+            var prototype = new RollPrototype
+            {
+                Quantity = 3,
+                Die = 4,
+                Multiplier = 10,
+            };
+
+            collection.Rolls.Add(prototype);
+
+            var matches = collection.Matches(0, 90);
+            Assert.That(matches, Is.True);
+        }
+
+        [Test]
+        public void Matches_MultipleMultipliedRolls()
+        {
+            var prototype1 = new RollPrototype
+            {
+                Quantity = 3,
+                Die = 4,
+                Multiplier = 10,
+            };
+            var prototype2 = new RollPrototype
+            {
+                Quantity = 2,
+                Die = 6,
+                Multiplier = 100,
+            };
+
+            collection.Rolls.Add(prototype1);
+            collection.Rolls.Add(prototype2);
+
+            var matches = collection.Matches(0, 1090);
+            Assert.That(matches, Is.True);
+        }
+
+        [Test]
+        public void Matches_MultipliedAndUnmultipliedRollsWithAdjustment()
+        {
+            var prototype1 = new RollPrototype
+            {
+                Quantity = 3,
+                Die = 4,
+                Multiplier = 10,
+            };
+            var prototype2 = new RollPrototype
+            {
+                Quantity = 2,
+                Die = 6,
+            };
+
+            collection.Rolls.Add(prototype1);
+            collection.Rolls.Add(prototype2);
+            collection.Adjustment = 5;
+
+            var matches = collection.Matches(7, 107);
+            Assert.That(matches, Is.True);
+        }
+
+        [Test]
         public void DoesNotMatch_WhenLowerWrong()
         {
             var prototype = new RollPrototype
@@ -850,6 +912,25 @@ namespace DnDGen.RollGen.Tests.Unit
 
             var matches = collection.Matches(100, 10_000);
             Assert.That(matches, Is.False);
+        }
+
+        [Test]
+        public void Matches_WhenMultipliedUpperIsGreaterThanMaxInt_AndAdjustmentLowersItWithinRange()
+        {
+            var prototype = new RollPrototype
+            {
+                Quantity = Limits.Quantity,
+                Die = Limits.Die,
+                Multiplier = 22,
+            };
+
+            Assert.That((Limits.Quantity * Limits.Die - Limits.Quantity) * 22L, Is.GreaterThan(int.MaxValue));
+
+            collection.Rolls.Add(prototype);
+            collection.Adjustment = -1_000_000_000;
+
+            var matches = collection.Matches(-1_000_000_000, 1_199_780_000);
+            Assert.That(matches, Is.True);
         }
 
         [Test]
