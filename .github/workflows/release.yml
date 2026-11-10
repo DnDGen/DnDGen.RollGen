@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: check
+    uses: ./.github/workflows/build.yml
+
+  publish:
+    name: publish
+    needs: check
+    if: github.repository == 'DnDGen/DnDGen.RollGen'
+    runs-on: ubuntu-latest
+    environment: Prod
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Download package
+        uses: actions/download-artifact@v8
+        with:
+          name: package
+          path: package
+
+      - name: Log in to NuGet with Trusted Publishing
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: cidthecoatrack
+
+      - name: Push to NuGet.org
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: dotnet nuget push "package/*.nupkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
+
+  release:
+    name: release
+    needs: [check, publish]
+    if: github.repository == 'DnDGen/DnDGen.RollGen'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download package
+        uses: actions/download-artifact@v8
+        with:
+          name: package
+          path: package
+
+      - name: Download coverage report
+        uses: actions/download-artifact@v8
+        with:
+          name: coverage
+          path: coverage
+
+      - name: Create the GitHub release and tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.check.outputs.version }}
+        run: gh release create "$VERSION" package/*.nupkg coverage/coverage.cobertura.xml --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "$VERSION" --generate-notes

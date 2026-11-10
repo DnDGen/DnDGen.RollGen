@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>18.0.1</Version>
+    <Version>18.0.2</Version>
     <TargetFrameworks>net10.0</TargetFrameworks>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
@@ -13,7 +13,7 @@
     <PackageIcon>avatar-128.png</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Updated package icon</PackageReleaseNotes>
+    <PackageReleaseNotes>Moved the build and release to GitHub Actions.</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <None Include="avatar-128.png">
