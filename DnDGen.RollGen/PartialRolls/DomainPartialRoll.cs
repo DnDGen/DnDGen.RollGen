@@ -12,6 +12,7 @@ namespace DnDGen.RollGen.PartialRolls
         private readonly ExpressionEvaluator expressionEvaluator;
         private readonly Regex strictRollRegex;
         private readonly Regex booleanExpressionRegex;
+        private const int NoMatchingClosingParentheses = -666;
 
         private DomainPartialRoll(Random random, ExpressionEvaluator expressionEvaluator)
         {
@@ -260,6 +261,9 @@ namespace DnDGen.RollGen.PartialRolls
             {
                 var openParanthesisIndex = expressionWithReplacedRolls.IndexOf('(');
                 var innerExpressionLength = GetInnerExpressionLength(expressionWithReplacedRolls, openParanthesisIndex);
+                if (innerExpressionLength == NoMatchingClosingParentheses)
+                    throw new InvalidOperationException($"No closing paranthesis found for expression '{expressionWithReplacedRolls}'");
+
                 var innerExpression = expressionWithReplacedRolls.Substring(openParanthesisIndex + 1, innerExpressionLength);
 
                 var replacement = ReplaceRollsInExpression(innerExpression, getRoll);
@@ -402,7 +406,7 @@ namespace DnDGen.RollGen.PartialRolls
 
             if (closingIndex == 0)
             {
-                throw new InvalidOperationException($"No closing paranthesis found for expression '{expression}'");
+                return NoMatchingClosingParentheses;
             }
 
             return closingIndex - openingIndex - 1;
@@ -582,6 +586,9 @@ namespace DnDGen.RollGen.PartialRolls
             {
                 var openParanthesisIndex = expressionWithReplacedRolls.IndexOf('(');
                 var innerExpressionLength = GetInnerExpressionLength(expressionWithReplacedRolls, openParanthesisIndex);
+                if (innerExpressionLength == NoMatchingClosingParentheses)
+                    return (null, false);
+
                 var innerExpression = expressionWithReplacedRolls.Substring(openParanthesisIndex + 1, innerExpressionLength);
 
                 var replacement = ValidateRollsInExpression(innerExpression);

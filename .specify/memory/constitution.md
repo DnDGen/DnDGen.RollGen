@@ -52,9 +52,13 @@ No additions.
   roll can produce, and raising the minimum .NET or Ninject major version. Ninject is MAJOR because
   consumers wire RollGen into their own kernel; Albatross.Expression is internal, so updating it is
   MAJOR only when it makes a valid expression invalid.
-  On `main`, `cicd/build.yml` builds and runs the unit, IoC, integration, and stress tests (the
-  stress tests in the `Stress` configuration) with code coverage, then tags the commit with
-  `<Version>`; `cicd/release.yml` publishes to NuGet.org and creates a GitHub release.
+  `.github/workflows/build.yml` checks every pull request: it builds and runs the unit, IoC,
+  integration, and stress tests (the stress tests in the `Stress` configuration) with code
+  coverage, merges their coverage reports into one, and fails if `<Version>` isn't greater than the
+  latest release's, or if the merged coverage is lower than the latest release's coverage report.
+  On every push to `main`, `.github/workflows/release.yml` runs the same check, then publishes to
+  NuGet.org with Trusted Publishing and creates a GitHub release, tagged with `<Version>`, with the
+  package and merged coverage report attached.
 - **README as contract**: The README documents every public member of `Dice`, `PartialRoll`,
   `RollHelper`, `Limits`, `DiceFactory`, and `RollGenModuleLoader`, including every
   overload, constant, and optional parameter with its default, and the expression syntax that
@@ -66,4 +70,4 @@ No additions.
 This repository follows the DnDGen constitution's Governance. The additions in this file are
 amended by pull request to this repository and versioned the same way.
 
-**Version**: 1.0.0 | **Ratified**: 2026-10-30 | **Last Amended**: 2026-10-30
+**Version**: 1.0.1 | **Ratified**: 2026-10-30 | **Last Amended**: 2026-11-10

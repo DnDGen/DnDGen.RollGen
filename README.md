@@ -2,7 +2,7 @@
 
 Rolls a set of dice, as determined by the D20 die system.
 
-[![Build Status](https://dev.azure.com/dndgen/DnDGen/_apis/build/status%2FDnDGen.RollGen%20-%20Build?branchName=main)](https://dev.azure.com/dndgen/DnDGen/_build/latest?definitionId=13&branchName=main) [![Theme Song](https://img.shields.io/badge/theme_song-Suno-ff69b4)](https://suno.com/s/RvnVPcPR4ZTGIEt7)
+[![Build Status](https://github.com/DnDGen/DnDGen.RollGen/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/DnDGen/DnDGen.RollGen/actions/workflows/release.yml?query=branch%3Amain) [![Theme Song](https://img.shields.io/badge/theme_song-Suno-ff69b4)](https://suno.com/s/RvnVPcPR4ZTGIEt7)
 
 ## Installing
 

@@ -22,8 +22,8 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
 
             var count = 0;
             mockRandom.Setup(r => r.Next(It.IsAny<int>())).Returns((int max) => count++ % max);
-            mockExpressionEvaluator.Setup(e => e.Evaluate<int>(It.IsAny<string>())).Returns((string s) => DefaultIntValue(s));
-            mockExpressionEvaluator.Setup(e => e.Evaluate<double>(It.IsAny<string>())).Returns((string s) => DefaultDoubleValue(s));
+            mockExpressionEvaluator.Setup(e => e.Evaluate<int>(It.IsAny<string>())).Returns(DefaultIntValue);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<double>(It.IsAny<string>())).Returns(DefaultDoubleValue);
             mockExpressionEvaluator
                 .Setup(e => e.IsValid(It.IsAny<string>()))
                 .Returns((string s) => int.TryParse(s, out var o1) || double.TryParse(s, out var o2));
@@ -2759,6 +2759,73 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
             Assert.That(sum, Is.EqualTo(expected), partialRoll.CurrentRollExpression);
         }
 
+        [TestCase("1", true)]
+        [TestCase("(1)", true)]
+        [TestCase("(2)3", true)]
+        [TestCase("(2)(3)", true)]
+        [TestCase("2(3)", true)]
+        [TestCase("(3)(2)", true)]
+        [TestCase("1d2", true)]
+        [TestCase("(1d2)", true)]
+        [TestCase("3(1d2)", true)]
+        [TestCase("(3)(1d2)", true)]
+        [TestCase("(1d2)3", true)]
+        [TestCase("(1d2)(3)", true)]
+        [TestCase("((1d2))", true)]
+        [TestCase("(1d2) + (3d4)", true)]
+        [TestCase("(1d2)d3", true)]
+        [TestCase("1d(2d3)", true)]
+        [TestCase("1d2 + 1", true)]
+        [TestCase("(1d2+1)", true)]
+        [TestCase("((1d2)+1)", true)]
+        [TestCase("((1d2+1))", true)]
+        [TestCase("(1d2+1) + (3d4+1)", true)]
+        [TestCase("((1d2+1)) + ((3d4+1))", true)]
+        [TestCase("(((1d2+1)) + ((3d4+1)))", true)]
+        [TestCase("(1d2+1)d3", true)]
+        [TestCase("((1d2+1))d3", true)]
+        [TestCase("1d(2d3+1)", true)]
+        [TestCase("1d(((2d3+1)))", true)]
+        [TestCase("((1d2))+3", true)]
+        [TestCase("(((((1d2)))))+3", true)]
+        [TestCase("((0d2))+3", false)]
+        [TestCase("((2+3))+1d2", true)]
+        [TestCase("5*((1d2) + 1", false)]
+        public void ParantheticalExpression_IsValid(string expression, bool expected)
+        {
+            BuildPartialRoll(expression);
+
+            mockExpressionEvaluator.Setup(e => e.IsValid("1")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("1+1")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("1+3")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("2")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("2+1")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("2 + 1")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("2+3")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("2 + 12")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("2*3")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("3")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("3+1")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("3 + 13")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("3*2")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("5+2")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("6")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("6+1")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("7")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("9")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("9+1")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("12+1")).Returns(true);
+
+            //Sub-expressions
+            mockExpressionEvaluator.Setup(e => e.Evaluate<double>("2+1")).Returns(3);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<double>("2+3")).Returns(5);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<double>("6+1")).Returns(7);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<double>("12+1")).Returns(13);
+
+            var valid = partialRoll.IsValid();
+            Assert.That(valid, Is.EqualTo(expected));
+        }
+
         [TestCase("1", 1)]
         [TestCase("(1)", 1)]
         [TestCase("(2)3", 6)]
@@ -2783,28 +2850,38 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
         [TestCase("((1d2+1)) + ((3d4+1))", 12)]
         [TestCase("(((1d2+1)) + ((3d4+1)))", 12)]
         [TestCase("(1d2+1)d3", 5)]
+        [TestCase("((1d2+1))d3", 5)]
         [TestCase("1d(2d3+1)", 3)]
-        public void ParantheticalExpression(string expression, int expectedSum)
+        [TestCase("1d(((2d3+1)))", 3)]
+        [TestCase("((1d2))+3", 4)]
+        [TestCase("(((((1d2)))))+3", 4)]
+        [TestCase("((2+3))+1d2", 6)]
+        public void ParantheticalExpression_AsSum(string expression, int expectedSum)
         {
             BuildPartialRoll(expression);
+
             mockExpressionEvaluator.Setup(e => e.Evaluate<int>("1+1")).Returns(2);
             mockExpressionEvaluator.Setup(e => e.Evaluate<int>("1 + 1")).Returns(2);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("1+3")).Returns(4);
             mockExpressionEvaluator.Setup(e => e.Evaluate<int>("1 + 9")).Returns(10);
-            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("9+1")).Returns(10);
-            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("3+1")).Returns(4);
-            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("2 + 10")).Returns(12);
             mockExpressionEvaluator.Setup(e => e.Evaluate<int>("1*3")).Returns(3);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("2 + 10")).Returns(12);
             mockExpressionEvaluator.Setup(e => e.Evaluate<int>("2*3")).Returns(6);
-            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("3*2")).Returns(6);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("3+1")).Returns(4);
             mockExpressionEvaluator.Setup(e => e.Evaluate<int>("3*1")).Returns(3);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("3*2")).Returns(6);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("(2+3)+1")).Returns(6);
+            mockExpressionEvaluator.Setup(e => e.Evaluate<int>("9+1")).Returns(10);
 
             mockExpressionEvaluator.Setup(e => e.IsValid("1")).Returns(true);
             mockExpressionEvaluator.Setup(e => e.IsValid("1+1")).Returns(true);
-            mockExpressionEvaluator.Setup(e => e.IsValid("3")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("1+3")).Returns(true);
             mockExpressionEvaluator.Setup(e => e.IsValid("2")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("(2+3)+1")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("3")).Returns(true);
             mockExpressionEvaluator.Setup(e => e.IsValid("3+1")).Returns(true);
-            mockExpressionEvaluator.Setup(e => e.IsValid("9+1")).Returns(true);
             mockExpressionEvaluator.Setup(e => e.IsValid("9")).Returns(true);
+            mockExpressionEvaluator.Setup(e => e.IsValid("9+1")).Returns(true);
 
             var sum = partialRoll.AsSum();
             Assert.That(sum, Is.EqualTo(expectedSum));
@@ -2814,7 +2891,7 @@ namespace DnDGen.RollGen.Tests.Unit.PartialRolls
         public void ParantheticalExpressionThrowsException_WhenParanthesesMismatched()
         {
             BuildPartialRoll("5*((1d2) + 1");
-            Assert.That(() => partialRoll.AsSum(),
+            Assert.That(partialRoll.AsSum,
                 Throws.InvalidOperationException.With.Message.EqualTo($"No closing paranthesis found for expression '5*((1d2) + 1'"));
         }
 

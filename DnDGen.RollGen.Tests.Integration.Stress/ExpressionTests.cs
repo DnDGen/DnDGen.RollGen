@@ -22,9 +22,6 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
             expressions = [.. ExpressionTestData.Expressions];
         }
 
-        //INFO: RollGen converts decimal results to int with Convert, which rounds half to even
-        private static int ToInt(double value) => Convert.ToInt32(value);
-
         [Test]
         public void StressNumber()
         {
@@ -34,14 +31,15 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
         private void AssertNumber()
         {
             var (expression, value) = numbers[random.Next(numbers.Length)];
+            var roundedValue = Convert.ToInt32(value);
             var roll = dice.Roll(expression);
 
             Assert.That(roll.IsValid(), Is.True, roll.CurrentRollExpression);
-            Assert.That(roll.AsSum(), Is.EqualTo(ToInt(value)), roll.CurrentRollExpression);
-            Assert.That(roll.AsPotentialMinimum(), Is.EqualTo(ToInt(value)), roll.CurrentRollExpression);
-            Assert.That(roll.AsPotentialMaximum(), Is.EqualTo(ToInt(value)), roll.CurrentRollExpression);
+            Assert.That(roll.AsSum(), Is.EqualTo(roundedValue), roll.CurrentRollExpression);
+            Assert.That(roll.AsPotentialMinimum(), Is.EqualTo(roundedValue), roll.CurrentRollExpression);
+            Assert.That(roll.AsPotentialMaximum(), Is.EqualTo(roundedValue), roll.CurrentRollExpression);
             AssertTrueOrFalse(roll);
-            Assert.That(roll.AsIndividualRolls(), Is.EqualTo([ToInt(value)]), roll.CurrentRollExpression);
+            Assert.That(roll.AsIndividualRolls(), Is.EqualTo([roundedValue]), roll.CurrentRollExpression);
         }
 
         [Test]
@@ -73,17 +71,19 @@ namespace DnDGen.RollGen.Tests.Integration.Stress
         private void AssertExpression()
         {
             var (expression, minimum, maximum, minimumRolls, maximumRolls) = expressions[random.Next(expressions.Length)];
+            var roundedMin = Convert.ToInt32(minimum);
+            var roundedMax = Convert.ToInt32(maximum);
             var roll = dice.Roll(expression);
 
             Assert.That(roll.IsValid(), Is.True, roll.CurrentRollExpression);
-            Assert.That(roll.AsSum(), Is.InRange(ToInt(minimum), ToInt(maximum)), roll.CurrentRollExpression);
-            Assert.That(roll.AsPotentialMinimum(), Is.EqualTo(ToInt(minimum)), roll.CurrentRollExpression);
-            Assert.That(roll.AsPotentialMaximum(), Is.EqualTo(ToInt(maximum)), roll.CurrentRollExpression);
+            Assert.That(roll.AsSum(), Is.InRange(roundedMin, roundedMax), roll.CurrentRollExpression);
+            Assert.That(roll.AsPotentialMinimum(), Is.EqualTo(roundedMin), roll.CurrentRollExpression);
+            Assert.That(roll.AsPotentialMaximum(), Is.EqualTo(roundedMax), roll.CurrentRollExpression);
             AssertTrueOrFalse(roll);
 
             var rolls = roll.AsIndividualRolls();
             Assert.That(rolls.Count(), Is.InRange(minimumRolls, maximumRolls), roll.CurrentRollExpression);
-            Assert.That(rolls.Sum(), Is.InRange(ToInt(minimum), ToInt(maximum)), roll.CurrentRollExpression);
+            Assert.That(rolls.Sum(), Is.InRange(roundedMin, roundedMax), roll.CurrentRollExpression);
         }
 
         [Test]
