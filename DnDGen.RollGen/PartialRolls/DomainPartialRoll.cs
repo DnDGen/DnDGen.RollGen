@@ -12,7 +12,7 @@ namespace DnDGen.RollGen.PartialRolls
         private readonly ExpressionEvaluator expressionEvaluator;
         private readonly Regex strictRollRegex;
         private readonly Regex booleanExpressionRegex;
-        private const int NoMatcingClosingParentheses = -666;
+        private const int NoMatchingClosingParentheses = -666;
 
         private DomainPartialRoll(Random random, ExpressionEvaluator expressionEvaluator)
         {
@@ -261,7 +261,7 @@ namespace DnDGen.RollGen.PartialRolls
             {
                 var openParanthesisIndex = expressionWithReplacedRolls.IndexOf('(');
                 var innerExpressionLength = GetInnerExpressionLength(expressionWithReplacedRolls, openParanthesisIndex);
-                if (innerExpressionLength == NoMatcingClosingParentheses)
+                if (innerExpressionLength == NoMatchingClosingParentheses)
                     throw new InvalidOperationException($"No closing paranthesis found for expression '{expressionWithReplacedRolls}'");
 
                 var innerExpression = expressionWithReplacedRolls.Substring(openParanthesisIndex + 1, innerExpressionLength);
@@ -372,9 +372,6 @@ namespace DnDGen.RollGen.PartialRolls
         {
             var openParanthesisIndex = expression.IndexOf('(');
             var innerExpressionLength = GetInnerExpressionLength(expression, openParanthesisIndex);
-            if (innerExpressionLength == NoMatcingClosingParentheses)
-                return false;
-
             var followingIndex = openParanthesisIndex + innerExpressionLength + 2;
 
             if (followingIndex >= expression.Length)
@@ -409,7 +406,7 @@ namespace DnDGen.RollGen.PartialRolls
 
             if (closingIndex == 0)
             {
-                return NoMatcingClosingParentheses;
+                return NoMatchingClosingParentheses;
             }
 
             return closingIndex - openingIndex - 1;
@@ -589,7 +586,7 @@ namespace DnDGen.RollGen.PartialRolls
             {
                 var openParanthesisIndex = expressionWithReplacedRolls.IndexOf('(');
                 var innerExpressionLength = GetInnerExpressionLength(expressionWithReplacedRolls, openParanthesisIndex);
-                if (innerExpressionLength == NoMatcingClosingParentheses)
+                if (innerExpressionLength == NoMatchingClosingParentheses)
                     return (null, false);
 
                 var innerExpression = expressionWithReplacedRolls.Substring(openParanthesisIndex + 1, innerExpressionLength);

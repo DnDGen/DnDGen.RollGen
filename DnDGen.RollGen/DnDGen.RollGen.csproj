@@ -13,7 +13,7 @@
     <PackageIcon>avatar-128.png</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Moved the build and release to GitHub Actions.</PackageReleaseNotes>
+    <PackageReleaseNotes>Moved the build and release to GitHub Actions. IsValid now returns false for an expression with an unclosed parenthesis, instead of throwing.</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <None Include="avatar-128.png">

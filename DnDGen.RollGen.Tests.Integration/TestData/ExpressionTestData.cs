@@ -234,6 +234,7 @@ namespace DnDGen.RollGen.Tests.Integration.TestData
                 ("(((((1d2)))))+3", true),
                 ("((0d2))+3", false),
                 ("((2+3))+1d2", true),
+                ("5*((1d2) + 1", false),
             ];
 
         public static IEnumerable ValidityTestCases => Validity.Select(v => new TestCaseData(v.Expression, v.Valid));
