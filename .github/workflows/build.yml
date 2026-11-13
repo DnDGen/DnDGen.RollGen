@@ -3,101 +3,13 @@ name: Build
 on:
   pull_request:
     branches: [main]
-  workflow_call:
-    outputs:
-      version:
-        description: The csproj <Version>, checked to be greater than the latest release
-        value: ${{ jobs.check.outputs.version }}
 
 permissions:
   contents: read
 
-# Named, not ${{ github.workflow }}: when Release calls this workflow, github.workflow is
-# Release, and sharing Release's group would deadlock the run.
-concurrency:
-  group: build-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
-
 jobs:
-  check:
-    name: check
-    runs-on: windows-latest
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-    defaults:
-      run:
-        shell: pwsh
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-
-      - name: Test the check scripts
-        run: |
-          Import-Module Pester -MinimumVersion 5.0
-          $configuration = New-PesterConfiguration
-          $configuration.Run.Path = '.github/scripts'
-          $configuration.Run.Exit = $true
-          $configuration.Output.Verbosity = 'Detailed'
-          Invoke-Pester -Configuration $configuration
-
-      - name: Check the version is newer than the latest release
-        id: version
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          $version = ([xml](Get-Content -Path DnDGen.RollGen/DnDGen.RollGen.csproj -Raw)).Project.PropertyGroup.Version
-          $released = @(gh release list --limit 1000 --json tagName --jq '.[].tagName')
-          if ($LASTEXITCODE -ne 0) { throw 'Could not list the releases.' }
-          ./.github/scripts/Assert-VersionIsNewer.ps1 -Version $version -ReleasedVersions $released
-          $latest = $released | Sort-Object { [version]($_ -replace '^v', '') } -Descending | Select-Object -First 1
-          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-          "latest=$latest" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-
-      - name: Build
-        run: dotnet build DnDGen.RollGen/DnDGen.RollGen.csproj --configuration Release
-
-      - name: Unit tests
-        run: dotnet test DnDGen.RollGen.Tests.Unit/DnDGen.RollGen.Tests.Unit.csproj -v normal --collect "Code Coverage;Format=cobertura" --settings CodeCoverage.runsettings --results-directory TestResults
-
-      - name: IoC tests
-        run: dotnet test DnDGen.RollGen.Tests.Integration.IoC/DnDGen.RollGen.Tests.Integration.IoC.csproj -v normal --collect "Code Coverage;Format=cobertura" --settings CodeCoverage.runsettings --results-directory TestResults
-
-      - name: Integration tests
-        run: dotnet test DnDGen.RollGen.Tests.Integration/DnDGen.RollGen.Tests.Integration.csproj -v normal --collect "Code Coverage;Format=cobertura" --settings CodeCoverage.runsettings --results-directory TestResults
-
-      - name: Stress tests
-        run: dotnet test DnDGen.RollGen.Tests.Integration.Stress/DnDGen.RollGen.Tests.Integration.Stress.csproj -v normal --configuration Stress --collect "Code Coverage;Format=cobertura" --settings CodeCoverage.runsettings --results-directory TestResults
-
-      - name: Check coverage is no lower than the latest release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          LATEST: ${{ steps.version.outputs.latest }}
-        run: |
-          $reports = @(Get-ChildItem -Path TestResults -Recurse -Filter *.cobertura.xml)
-          if (-not $reports) { throw 'The test run produced no coverage report.' }
-          # Each test project writes its own report; the union of them is the library's coverage.
-          dotnet tool install --global dotnet-coverage
-          if ($LASTEXITCODE -ne 0) { throw 'Could not install dotnet-coverage.' }
-          dotnet-coverage merge @($reports.FullName) --output coverage.cobertura.xml --output-format cobertura
-          if ($LASTEXITCODE -ne 0) { throw 'Could not merge the coverage reports.' }
-          gh release download $env:LATEST --pattern coverage.cobertura.xml --dir baseline
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "Release $env:LATEST has no coverage report to download."
-            $global:LASTEXITCODE = 0
-          }
-          ./.github/scripts/Assert-CoverageNotLower.ps1 -ReportPath coverage.cobertura.xml -BaselinePath baseline/coverage.cobertura.xml
-
-      - name: Upload coverage report
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: coverage
-          path: coverage.cobertura.xml
-          if-no-files-found: ignore
-
-      - name: Upload package
-        uses: actions/upload-artifact@v7
-        with:
-          name: package
-          path: DnDGen.RollGen/bin/Release/DnDGen.RollGen.*.nupkg
-          if-no-files-found: error
+  build:
+    name: build
+    uses: DnDGen/.github/.github/workflows/nuget-build.yml@v1
+    with:
+      project: DnDGen.RollGen
